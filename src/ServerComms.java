@@ -1,14 +1,14 @@
 import java.io.IOException;
 import java.net.Socket;
 
-public class Comms
+public class ServerComms
 {
-	Comms()
+	ServerComms()
 	{
 		this(false);
 	}
 
-	Comms(boolean b)
+	ServerComms(boolean b)
 	{
 		isServer = b;
 	}
