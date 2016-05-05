@@ -21,19 +21,16 @@ public class Comms
 
 	private void init()
 	{
-		System.out.println("Initialising comms");
 		try {
 			in = sk.getInputStream();
 			out = sk.getOutputStream();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		System.out.println("Comms initialised");
 	}
 
 	public void sendMessage(Message m)
 	{
-		System.out.println("Sending message");
 		try {
 			ObjectOutputStream writeOut = new ObjectOutputStream(out);
 			writeOut.writeObject(m);
@@ -41,12 +38,10 @@ public class Comms
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		System.out.println("Message sent!");
 	}
 
 	public Message getMessage()
 	{
-		System.out.println("Getting message");
 		Message m = null;
 		try {
 			ObjectInputStream readIn = new ObjectInputStream(in);
@@ -54,7 +49,6 @@ public class Comms
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
-		System.out.println("Message received!");
 		return m;
 	}
 
