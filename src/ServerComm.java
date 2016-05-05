@@ -1,0 +1,9 @@
+class ServerComm
+{
+	ServerComm()
+	{
+
+	}
+
+
+}
