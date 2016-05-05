@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Implement Client-Server communication">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ClientOld.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Comms.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ServerProtocol.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Client.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Rhys.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Rhys.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client.java" afterPath="$PROJECT_DIR$/src/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Message.java" afterPath="$PROJECT_DIR$/src/Message.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ServerComms.java" afterPath="$PROJECT_DIR$/src/ServerComms.java" />
     </list>
     <ignored path="AuctionSystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -593,7 +585,14 @@
       <option name="project" value="LOCAL" />
       <updated>1462419702658</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implement Client-Server communication">
+      <created>1462424685219</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1462424685219</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
