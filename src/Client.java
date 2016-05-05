@@ -1,7 +1,10 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Scanner;
+import java.util.Random;
 
 public class Client implements Runnable
 {
@@ -16,7 +19,7 @@ public class Client implements Runnable
 		(new Client()).run();
 	}
 
-	@Override
+	/*@Override
 	public void run()
 	{
 		this.init();
@@ -57,6 +60,19 @@ public class Client implements Runnable
 				}
 			}
 		}
+	}*/
+
+	@Override
+	public void run()
+	{
+		this.init();
+	}
+
+	private void setPanel(JPanel p)
+	{
+		f.setContentPane(p);
+		f.revalidate();
+		f.repaint();
 	}
 
 	private void exit()
@@ -79,9 +95,63 @@ public class Client implements Runnable
 				exit();
 			}
 		});
-
+		setPanel(makeRandomPane());
 		f.setSize(500, 500);
 		f.setVisible(true);
+	}
+
+	private JPanel makeScrollPane()
+	{
+		JPanel panels = new JPanel();
+		JPanel out = new JPanel();
+		panels.setLayout(new GridBagLayout());
+
+		GridBagConstraints gbc = new GridBagConstraints();
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.ipady = 50;
+		gbc.weightx = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+
+		for (int i = 0; i < 20; i++) {
+			JPanel x = new JPanel();
+			Random rand = new Random();
+			float r = rand.nextFloat();
+			float g = rand.nextFloat();
+			float b = rand.nextFloat();
+			x.setBackground(new Color(r, g, b));
+			panels.add(x, gbc);
+			gbc.gridy++;
+		}
+
+		out.add(new JScrollPane(panels));
+
+		return out;
+	}
+
+	private JPanel makeRandomPane()
+	{
+		JPanel p = new JPanel();
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		p.setBackground(new Color(r, g, b));
+		p.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Random rand = new Random();
+				float r = rand.nextFloat();
+				float g = rand.nextFloat();
+				float b = rand.nextFloat();
+				p.setBackground(new Color(r, g, b));
+				c.sendMessage(new StringMessage(0, "spam"));
+			}
+		});
+		return p;
 	}
 
 	private final JFrame f;

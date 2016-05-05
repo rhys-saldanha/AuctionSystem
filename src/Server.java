@@ -1,7 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Server implements Runnable
@@ -31,7 +28,7 @@ public class Server implements Runnable
 	@Override
 	public void run()
 	{
-		System.out.println(c.name() + " : STARTED");
+		System.out.println(c.nameTime() + " : STARTED");
 		try {
 			while (c.isOpen()) {
 				Message m = c.getMessage();
@@ -46,58 +43,14 @@ public class Server implements Runnable
 						}
 						c.sendMessage(new StringMessage(0, ""));
 					} else {
-						System.out.printf("%s : %s\n", c.name(), sm.s);
+						System.out.printf("%s : %s\n", c.nameTime(), sm.s);
 					}
 				}
-				ClientPanel p = this.makeRandomPane();
-				c.sendMessage(p);
-				Thread.sleep(100);
 			}
-		} catch (InterruptedException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println(c.name() + " : DISCONNECTED");
-	}
-
-	private ClientPanel makeScrollPane()
-	{
-		ClientPanel panels = new ClientPanel();
-		ClientPanel out = new ClientPanel();
-		panels.setLayout(new GridBagLayout());
-
-		GridBagConstraints gbc = new GridBagConstraints();
-
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.ipady = 50;
-		gbc.weightx = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-
-		for (int i = 0; i < 20; i++) {
-			JPanel x = new JPanel();
-			Random rand = new Random();
-			float r = rand.nextFloat();
-			float g = rand.nextFloat();
-			float b = rand.nextFloat();
-			x.setBackground(new Color(r, g, b));
-			panels.add(x, gbc);
-			gbc.gridy++;
-		}
-
-		out.add(new JScrollPane(panels));
-
-		return out;
-	}
-
-	private ClientPanel makeRandomPane()
-	{
-		ClientPanel p = new ClientPanel();
-		Random rand = new Random();
-		float r = rand.nextFloat();
-		float g = rand.nextFloat();
-		float b = rand.nextFloat();
-		p.setBackground(new Color(r, g, b));
-		return p;
+		System.out.println(c.nameTime() + " : DISCONNECTED");
 	}
 
 	private static ConcurrentSkipListSet<String> names = new ConcurrentSkipListSet<>();

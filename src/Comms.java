@@ -2,9 +2,10 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class Comms
+public class Comms implements Message, Serializable
 {
 	Comms(Socket sk)
 	{
@@ -28,7 +29,7 @@ public class Comms
 		) {
 			Socket sk = sc.accept();
 			c = new Comms(sk);
-			System.out.println(c.name() + " : ACCEPTED CONNECTION");
+			System.out.println(c.nameTime() + " : ACCEPTED CONNECTION");
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -98,6 +99,12 @@ public class Comms
 		return sk.getRemoteSocketAddress().toString().substring(1);
 	}
 
+	public String nameTime()
+	{
+		return String.format("%s @ %s:%s", this.name(), LocalDateTime.now().getHour(),
+				LocalDateTime.now().getMinute());
+	}
+
 	public boolean isOpen()
 	{
 		return open;
@@ -121,6 +128,13 @@ public class Comms
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public Comms clone()
+	{
+		Comms c = new Comms(this.sk);
+		c.init();
+		return c;
 	}
 
 	public static final int PORT = 2244;
