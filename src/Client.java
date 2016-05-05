@@ -130,21 +130,22 @@ public class Client implements Runnable
 	private JPanel makeButtonPanel()
 	{
 		JPanel p = new JPanel();
-		JButton b_1 = new JButton("Add name");
-		JButton b_2 = new JButton("View names");
+		JButton b_addUser = new JButton("Add user");
+		JButton b_viewUsers = new JButton("View users");
 
-		p.add(b_1);
-		p.add(b_2);
+		p.add(b_addUser);
+		p.add(b_viewUsers);
 
-		b_1.addActionListener(new ActionListener()
+		b_addUser.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				c.sendMessage(new StringMessage(1, "dan"));
+				c.sendMessage(new NewUserMessage("wikkido5000", "rhys", "saldanha", 3));
+
 			}
 		});
-		b_2.addActionListener(new ActionListener()
+		b_viewUsers.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)

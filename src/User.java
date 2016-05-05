@@ -20,7 +20,6 @@ public class User
 
 	public String getFamilyName()
 	{
-
 		return familyName;
 	}
 

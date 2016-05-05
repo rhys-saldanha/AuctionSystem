@@ -32,18 +32,18 @@ public class Server implements Runnable
 		try {
 			while (c.isOpen()) {
 				Message m = c.getMessage();
+				if (m instanceof NewUserMessage) {
+					NewUserMessage u = (NewUserMessage) m;
+					registeredUsers.add(new User(u.ID, u.name, u.familyName, u.hash));
+				}
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
-					if (sm.i == 1) {
-						Server.names.add(sm.s);
-					} else if (sm.i == 2) {
-						Iterator<String> it = names.iterator();
+					if (sm.i == 2) {
+						Iterator<User> it = registeredUsers.iterator();
 						while (it.hasNext()) {
-							c.sendMessage(new StringMessage(2, it.next()));
+							c.sendMessage(new StringMessage(1, it.next().getID()));
 						}
 						c.sendMessage(new StringMessage(0, ""));
-					} else {
-						System.out.printf("%s : %s\n", c.nameTime(), sm.s);
 					}
 				}
 			}
@@ -53,6 +53,7 @@ public class Server implements Runnable
 		System.out.println(c.nameTime() + " : DISCONNECTED");
 	}
 
-	private static ConcurrentSkipListSet<String> names = new ConcurrentSkipListSet<>();
+	private static ConcurrentSkipListSet<User> registeredUsers = new ConcurrentSkipListSet<>(
+			(o1, o2) -> o1.hashCode() - o2.hashCode());
 	private final Comms c;
 }
