@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.Random;
 
 public class Client implements Runnable
@@ -95,12 +92,12 @@ public class Client implements Runnable
 				exit();
 			}
 		});
-		setPanel(makeRandomPane());
+		setPanel(makeButtonPanel());
 		f.setSize(500, 500);
 		f.setVisible(true);
 	}
 
-	private JPanel makeScrollPane()
+	private JPanel makeScrollPanel()
 	{
 		JPanel panels = new JPanel();
 		JPanel out = new JPanel();
@@ -130,7 +127,47 @@ public class Client implements Runnable
 		return out;
 	}
 
-	private JPanel makeRandomPane()
+	private JPanel makeButtonPanel()
+	{
+		JPanel p = new JPanel();
+		JButton b_1 = new JButton("Add name");
+		JButton b_2 = new JButton("View names");
+
+		p.add(b_1);
+		p.add(b_2);
+
+		b_1.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				c.sendMessage(new StringMessage(1, "dan"));
+			}
+		});
+		b_2.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				c.sendMessage(new StringMessage(2, ""));
+				StringMessage sm;
+				while (true) {
+					Message m = c.getMessage();
+					if (m instanceof StringMessage) {
+						sm = (StringMessage) m;
+						if (sm.i == 0) {
+							break;
+						}
+						System.out.println(sm.s);
+					}
+				}
+			}
+		});
+
+		return p;
+	}
+
+	private JPanel makeRandomPanel()
 	{
 		JPanel p = new JPanel();
 		Random rand = new Random();
