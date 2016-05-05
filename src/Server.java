@@ -16,5 +16,5 @@ public class Server
 		sc.connect();
 	}
 
-	private ServerComms sc;
+	private final ServerComms sc;
 }

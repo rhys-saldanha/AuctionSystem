@@ -26,6 +26,7 @@ public class ServerProtocol implements Runnable
 				Thread.sleep(100);
 			}
 		} catch (InterruptedException ex) {
+			ex.printStackTrace();
 		}
 	}
 
@@ -70,5 +71,5 @@ public class ServerProtocol implements Runnable
 		return p;
 	}
 
-	private Comms c;
+	private final Comms c;
 }

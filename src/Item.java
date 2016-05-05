@@ -1,5 +1,6 @@
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -90,9 +91,7 @@ public class Item
 		String[] cat = new String[]{"antiques", "art", "books", "photography", "vehicles", "clothing", "computing",
 				"film", "health", "home", "jewellery", "communication", "music", "instruments", "pet supplies",
 				"sports", "toys", "other"};
-		for (String i : cat) {
-			ALLOWEDCATEGORIES.add(i);
-		}
+		Collections.addAll(ALLOWEDCATEGORIES, cat);
 		ALLOWEDCATEGORIES.sort(new Comparator<String>()
 		{
 			@Override
@@ -115,7 +114,7 @@ public class Item
 	private final Time closeTime;
 	private final Integer ID;
 	private final Integer reservePrice;
-	private String description;
-	private ArrayList<String> categories;
-	private PriorityQueue<Bid> bids;
+	private final String description;
+	private final ArrayList<String> categories;
+	private final PriorityQueue<Bid> bids;
 }

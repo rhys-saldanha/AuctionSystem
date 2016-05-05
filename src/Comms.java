@@ -49,6 +49,8 @@ public class Comms
 		try {
 			ObjectInputStream readIn = new ObjectInputStream(in);
 			m = (Message) readIn.readObject();
+		} catch (SocketException ex) {
+			close();
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
@@ -74,6 +76,8 @@ public class Comms
 		try {
 			ObjectInputStream readIn = new ObjectInputStream(in);
 			p = (ClientPanel) readIn.readObject();
+		} catch (SocketException ex) {
+			close();
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
@@ -94,6 +98,8 @@ public class Comms
 	{
 		open = false;
 		try {
+			in.close();
+			out.close();
 			sk.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();

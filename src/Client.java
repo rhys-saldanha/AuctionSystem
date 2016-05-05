@@ -58,6 +58,6 @@ public class Client
 		f.setVisible(true);
 	}
 
-	private JFrame f;
-	private Comms c;
+	private final JFrame f;
+	private final Comms c;
 }

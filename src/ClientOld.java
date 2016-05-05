@@ -20,7 +20,7 @@ public class ClientOld
 	{
 		f.setTitle("Client");
 		f.setContentPane(this.makeScrollPane());
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		f.setSize(500, 500);
 		f.setVisible(true);
@@ -53,5 +53,5 @@ public class ClientOld
 		return new JScrollPane(panels);
 	}
 
-	private JFrame f;
+	private final JFrame f;
 }
