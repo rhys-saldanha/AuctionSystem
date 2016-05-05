@@ -11,8 +11,8 @@ public class ServerComms
 		) {
 			while (true) {
 				Socket sk = sc.accept();
-				System.out.println("Connection accepted");
 				Comms c = new Comms(sk);
+				System.out.println("Connection accepted for " + c.name());
 				Thread x = new Thread(new ServerProtocol(c));
 				x.start();
 			}

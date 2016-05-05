@@ -1,14 +1,24 @@
+import java.util.Scanner;
+
 public class Client
 {
 	Client()
 	{
 		this.c = new Comms();
-		c.sendMessage(new Message(5, "Hello World!"));
 	}
 
 	public static void main(String[] args)
 	{
-		new Client();
+		(new Client()).run();
+	}
+
+	public void run()
+	{
+		Scanner s = new Scanner(System.in);
+		while (true) {
+			String input = s.nextLine();
+			c.sendMessage(new Message(0, input));
+		}
 	}
 
 	private Comms c;

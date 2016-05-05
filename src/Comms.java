@@ -52,6 +52,11 @@ public class Comms
 		return m;
 	}
 
+	public String name()
+	{
+		return sk.getRemoteSocketAddress().toString();
+	}
+
 	private Socket sk;
 	private InputStream in;
 	private OutputStream out;
