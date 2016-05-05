@@ -20,16 +20,19 @@ public class Client
 	{
 		this.init();
 		Scanner s = new Scanner(System.in);
-		/*while (true) {
-			String input = s.nextLine();
-			c.sendMessage(new Message(0, input));
-		}*/
 		while (c.isOpen()) {
-			ClientPanel p = c.getPanel();
-			if (p != null) {
+			String input = s.nextLine();
+			c.sendMessage(new StringMessage(0, input));
+			Message m = c.getMessage();
+			if (m instanceof ClientPanel) {
+				ClientPanel p = (ClientPanel) m;
 				f.setContentPane(p);
 				f.revalidate();
 				f.repaint();
+			}
+			if (m instanceof StringMessage) {
+				StringMessage sm = (StringMessage) m;
+				System.out.println(sm.s);
 			}
 		}
 	}

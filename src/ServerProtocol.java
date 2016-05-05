@@ -12,22 +12,22 @@ public class ServerProtocol implements Runnable
 	@Override
 	public void run()
 	{
-		System.out.println("Server thread created for " + c.name());
-		/*while (true) {
-			Message m = c.getMessage();
-			if (m != null) {
-				System.out.printf("%s : %s\n", c.name(), m.s);
-			}
-		}*/
+		System.out.println(c.name() + " : STARTED");
 		try {
 			while (c.isOpen()) {
+				Message m = c.getMessage();
+				if (m instanceof StringMessage) {
+					StringMessage sm = (StringMessage) m;
+					System.out.printf("%s : %s\n", c.name(), sm.s);
+				}
 				ClientPanel p = this.makeRandomPane();
-				c.sendPanel(p);
+				c.sendMessage(p);
 				Thread.sleep(100);
 			}
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
+		System.out.println(c.name() + " : DISCONNECTED");
 	}
 
 	private ClientPanel makeScrollPane()

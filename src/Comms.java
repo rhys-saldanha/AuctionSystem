@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -13,11 +14,26 @@ public class Comms
 	Comms()
 	{
 		try {
-			sk = new Socket("localhost", ServerComms.PORT);
+			sk = new Socket("localhost", PORT);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		init();
+	}
+
+	public static Comms connect()
+	{
+		Comms c = null;
+		try (
+				ServerSocket sc = new ServerSocket(PORT)
+		) {
+			Socket sk = sc.accept();
+			c = new Comms(sk);
+			System.out.println("Connection accepted for " + c.name());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return c;
 	}
 
 	private void init()
@@ -30,7 +46,7 @@ public class Comms
 		}
 	}
 
-	public void sendMessage(Message m)
+	public void sendMessage(StringMessage m)
 	{
 		try {
 			ObjectOutputStream writeOut = new ObjectOutputStream(out);
@@ -57,7 +73,7 @@ public class Comms
 		return m;
 	}
 
-	public void sendPanel(ClientPanel p)
+	public void sendMessage(ClientPanel p)
 	{
 		try {
 			ObjectOutputStream writeOut = new ObjectOutputStream(out);
@@ -70,23 +86,9 @@ public class Comms
 		}
 	}
 
-	public ClientPanel getPanel()
-	{
-		ClientPanel p = null;
-		try {
-			ObjectInputStream readIn = new ObjectInputStream(in);
-			p = (ClientPanel) readIn.readObject();
-		} catch (SocketException ex) {
-			close();
-		} catch (IOException | ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		return p;
-	}
-
 	public String name()
 	{
-		return sk.getRemoteSocketAddress().toString();
+		return sk.getRemoteSocketAddress().toString().substring(1);
 	}
 
 	public boolean isOpen()
@@ -106,6 +108,7 @@ public class Comms
 		}
 	}
 
+	public static final int PORT = 4444;
 	private boolean open = true;
 	private Socket sk;
 	private InputStream in;
