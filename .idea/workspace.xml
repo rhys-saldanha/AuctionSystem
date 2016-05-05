@@ -5,7 +5,7 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Fix code with Inspect Code">
+    <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Reimplemented getMessage">
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/SimpleClient.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/SimpleServer.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/TestObject.class" afterPath="" />
@@ -66,7 +66,7 @@
                 <entry file="file://$PROJECT_DIR$/src/Server.java">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="153">
-                      <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+                      <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
                       <folding />
                     </state>
                   </provider>
@@ -667,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1462437681926</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Reimplemented getMessage">
+      <created>1462448095660</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1462448095660</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -748,7 +755,8 @@
     <MESSAGE value="Add console input functionality and named connections" />
     <MESSAGE value="Add random colour panels server-client functionality" />
     <MESSAGE value="Fix code with Inspect Code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix code with Inspect Code" />
+    <MESSAGE value="Reimplemented getMessage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reimplemented getMessage" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -943,7 +951,7 @@
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding />
         </state>
       </provider>
