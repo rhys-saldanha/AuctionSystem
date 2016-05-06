@@ -34,7 +34,10 @@ public class Server implements Runnable
 				Message m = c.getMessage();
 				if (m instanceof NewUserMessage) {
 					NewUserMessage u = (NewUserMessage) m;
-					registeredUsers.add(new User(u.ID, u.name, u.familyName, u.hash));
+					User user = new User(u.ID, u.name, u.familyName, u.hash);
+					if (!(registeredUsers.contains(user))) {
+						registeredUsers.add(user);
+					}
 				}
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;

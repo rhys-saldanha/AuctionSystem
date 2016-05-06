@@ -26,11 +26,12 @@ public class User
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
 		User user = (User) o;
-		return ID.equals(user.ID);
+		return ID.equals(user.getID());
 	}
 
 	private final String name;

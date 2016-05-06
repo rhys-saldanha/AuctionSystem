@@ -142,7 +142,6 @@ public class Client implements Runnable
 			public void actionPerformed(ActionEvent e)
 			{
 				c.sendMessage(new NewUserMessage("wikkido5000", "rhys", "saldanha", 3));
-
 			}
 		});
 		b_viewUsers.addActionListener(new ActionListener()
