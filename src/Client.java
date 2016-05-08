@@ -141,7 +141,11 @@ public class Client implements Runnable
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				c.sendMessage(new NewUserMessage("wikkido5000", "rhys", "saldanha", 3));
+				Random r = new Random();
+				c.sendMessage(new NewUserMessage(String.format("%s", r.nextInt()),
+						String.format("%s", r.nextInt()),
+						String.format("%s", r.nextInt()),
+						r.nextInt()));
 			}
 		});
 		b_viewUsers.addActionListener(new ActionListener()

@@ -83,9 +83,8 @@ public class Comms implements Message, Serializable
 					} catch (IOException | ClassNotFoundException ex) {
 						ex.printStackTrace();
 					}
-					if (m instanceof ExitMessage) {
+					if (m instanceof ExitMessage)
 						close(false);
-					}
 					if (m != null)
 						messages.add(m);
 				}
