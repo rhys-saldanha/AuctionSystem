@@ -38,10 +38,7 @@ public class Item
 
 	public boolean addCategory(String c)
 	{
-		if (ALLOWEDCATEGORIES.contains(c.toLowerCase())) {
-			return categories.add(c.toLowerCase());
-		}
-		return false;
+		return ALLOWEDCATEGORIES.contains(c.toLowerCase()) && categories.add(c.toLowerCase());
 	}
 
 	public boolean removeCategory(String c)

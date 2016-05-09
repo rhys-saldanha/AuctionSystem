@@ -128,13 +128,6 @@ public class Comms implements Message, Serializable
 		}
 	}
 
-	public Comms clone()
-	{
-		Comms c = new Comms(this.sk);
-		c.init();
-		return c;
-	}
-
 	public static final int PORT = 2244;
 	private boolean open = true;
 	private Socket sk;

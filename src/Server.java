@@ -24,12 +24,10 @@ public class Server implements Runnable
 		while (true) {
 			Comms c = Comms.connect();
 			print(c.nameTime() + " : ACCEPTED CONNECTION");
-			if (c != null) {
-				online++;
-				c.init();
-				Thread x = new Thread(new Server(c));
-				x.start();
-			}
+			online++;
+			c.init();
+			Thread x = new Thread(new Server(c));
+			x.start();
 		}
 	}
 
