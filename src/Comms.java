@@ -29,7 +29,6 @@ public class Comms implements Message, Serializable
 		) {
 			Socket sk = sc.accept();
 			c = new Comms(sk);
-			System.out.println(c.nameTime() + " : ACCEPTED CONNECTION");
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -100,7 +99,7 @@ public class Comms implements Message, Serializable
 
 	public String nameTime()
 	{
-		return String.format("%s @ %s:%s", this.name(), LocalDateTime.now().getHour(),
+		return String.format("%s @ %02d:%02d", this.name(), LocalDateTime.now().getHour(),
 				LocalDateTime.now().getMinute());
 	}
 

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Server implements Runnable
@@ -14,8 +15,15 @@ public class Server implements Runnable
 
 	private static void init()
 	{
+		f.setTitle("Server");
+		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		f.setSize(500, 500);
+		f.getContentPane().add(textArea);
+		f.setVisible(true);
+
 		while (true) {
 			Comms c = Comms.connect();
+			print(c.nameTime() + " : ACCEPTED CONNECTION");
 			if (c != null) {
 				online++;
 				c.init();
@@ -23,6 +31,11 @@ public class Server implements Runnable
 				x.start();
 			}
 		}
+	}
+
+	private static void print(String str)
+	{
+		textArea.append(str + "\n");
 	}
 
 	@Override
@@ -34,19 +47,23 @@ public class Server implements Runnable
 				if (m instanceof NewUserMessage) {
 					NewUserMessage u = (NewUserMessage) m;
 					User user = new User(u.ID, u.name, u.familyName, u.hash);
-					exists: {
+					exists:
+					{
 						for (User registeredUser : registeredUsers) {
 							if (registeredUser.equals(user)) {
 								break exists;
 							}
 						}
 						registeredUsers.add(user);
-						System.out.println(c.nameTime() + " : " + user.getID() + " was registered");
+						print(c.nameTime() + " : " + user.getID() + " was registered");
 					}
 					//return error, user already exists
 				}
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
+					if (sm.i == 0) {
+						c.sendMessage(sm);
+					}
 					if (sm.i == 2) {
 						for (User registeredUser : registeredUsers) {
 							c.sendMessage(new StringMessage(1, registeredUser.getID()));
@@ -55,17 +72,18 @@ public class Server implements Runnable
 					}
 				}
 			}
-			online--;
+//			online--;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println(c.nameTime() + " : DISCONNECTED");
+		print(c.nameTime() + " : DISCONNECTED");
 		if (online < 1)
 			System.exit(0);
 	}
-
 	private static ConcurrentSkipListSet<User> registeredUsers = new ConcurrentSkipListSet<>(
 			(o1, o2) -> o1.hashCode() - o2.hashCode());
-	private final Comms c;
 	private static int online = 0;
+	private static JFrame f = new JFrame();
+	private static JTextArea textArea = new JTextArea();
+	private final Comms c;
 }
