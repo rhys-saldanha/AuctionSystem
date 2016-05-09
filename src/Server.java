@@ -13,11 +13,12 @@ public class Server implements Runnable
 		Server.init();
 	}
 
-	private static void init()
+	public static void init()
 	{
 		f.setTitle("Server");
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setSize(500, 500);
+		textArea.setEditable(false);
 		f.getContentPane().add(textArea);
 		f.setVisible(true);
 
