@@ -15,49 +15,6 @@ public class Client
 		(new Client()).init();
 	}
 
-	/*@Override
-	public void run()
-	{
-		this.init();
-		Scanner s = new Scanner(System.in);
-		while (c.isOpen()) {
-			//String input = s.nextLine();
-			String input = "";
-			if (input.contains("NAME")) {
-				c.sendMessage(new StringMessage(1, input.replace("NAME ", "")));
-			} else if (input.equals("LIST")) {
-				c.sendMessage(new StringMessage(2, ""));
-				StringMessage sm;
-				while (true) {
-					Message m = c.getMessage();
-					if (m instanceof StringMessage) {
-						sm = (StringMessage) m;
-						if (sm.i == 0) {
-							break;
-						}
-						System.out.println(sm.s);
-					}
-				}
-				continue;
-			} else {
-				c.sendMessage(new StringMessage(0, input));
-			}
-			Message m = c.getMessage();
-			if (m != null) {
-				if (m instanceof ClientPanel) {
-					ClientPanel p = (ClientPanel) m;
-					f.setContentPane(p);
-					f.revalidate();
-					f.repaint();
-				}
-				if (m instanceof StringMessage) {
-					StringMessage sm = (StringMessage) m;
-					System.out.println(sm.s);
-				}
-			}
-		}
-	}*/
-
 	private void init()
 	{
 		c.init();
