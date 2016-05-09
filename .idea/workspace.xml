@@ -4,12 +4,13 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Removes commented run() method">
+    <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Removes useless if statement in Server and clone() method in Comms">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ClientGUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Client.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Client.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Item$2.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Item$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Item.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Item.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Comms.java" afterPath="$PROJECT_DIR$/src/Comms.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Item.java" afterPath="$PROJECT_DIR$/src/Item.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server.java" afterPath="$PROJECT_DIR$/src/Server.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client.java" afterPath="$PROJECT_DIR$/src/Client.java" />
     </list>
     <ignored path="AuctionSystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,13 +34,31 @@
     <splitter split-orientation="horizontal" split-proportion="0.4877907">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Client.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="153">
-                  <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+                <state relative-caret-position="391">
+                  <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ClientGUI.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/ClientGUI.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="136">
+                  <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#322#323#0" expanded="true" />
+                    <element signature="e#356#357#0" expanded="true" />
+                    <element signature="e#683#684#0" expanded="true" />
+                    <element signature="e#721#722#0" expanded="true" />
+                    <element signature="e#1891#1892#0" expanded="true" />
+                    <element signature="e#1929#1930#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -152,12 +171,12 @@
         <option value="$PROJECT_DIR$/src/User.java" />
         <option value="$PROJECT_DIR$/src/test.java" />
         <option value="$PROJECT_DIR$/src/test.form" />
-        <option value="$PROJECT_DIR$/src/ClientGUI.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/Client.java" />
         <option value="$PROJECT_DIR$/src/Comms.java" />
         <option value="$PROJECT_DIR$/src/Item.java" />
         <option value="$PROJECT_DIR$/src/Server.java" />
+        <option value="$PROJECT_DIR$/src/Client.java" />
+        <option value="$PROJECT_DIR$/src/ClientGUI.java" />
       </list>
     </option>
   </component>
@@ -700,12 +719,19 @@
       <option name="project" value="LOCAL" />
       <updated>1462817491061</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Removes useless if statement in Server and clone() method in Comms">
+      <created>1462817678631</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1462817678631</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="3456" height="1416" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -791,7 +817,8 @@
     <MESSAGE value="Updates gitignore" />
     <MESSAGE value="Implements GUI for server" />
     <MESSAGE value="Removes commented run() method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removes commented run() method" />
+    <MESSAGE value="Removes useless if statement in Server and clone() method in Comms" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removes useless if statement in Server and clone() method in Comms" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1091,7 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientGUI.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/io/ObjectInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4403">
@@ -1133,16 +1159,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Comms.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="509">
@@ -1171,6 +1187,32 @@
             <element signature="e#151#152#0" expanded="true" />
             <element signature="e#643#644#0" expanded="true" />
             <element signature="e#677#678#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#322#323#0" expanded="true" />
+            <element signature="e#356#357#0" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#1891#1892#0" expanded="true" />
+            <element signature="e#1929#1930#0" expanded="true" />
           </folding>
         </state>
       </provider>
