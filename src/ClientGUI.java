@@ -17,10 +17,10 @@ public class ClientGUI
 
 	public void init()
 	{
-		setPanel(makeLogin());
+		setPanel(makeLoginPage());
 	}
 
-	public JPanel makeLogin()
+	public JPanel makeLoginPage()
 	{
 		JPanel p = new JPanel();
 		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -86,7 +86,7 @@ public class ClientGUI
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				setPanel(makeNewUserPanel());
+				setPanel(makeNewUserPage());
 			}
 		});
 
@@ -104,7 +104,7 @@ public class ClientGUI
 		return p;
 	}
 
-	private JPanel makeNewUserPanel()
+	private JPanel makeNewUserPage()
 	{
 		JPanel p = new JPanel();
 		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -251,6 +251,7 @@ public class ClientGUI
 	public void setPanel(JPanel p)
 	{
 		f.setContentPane(p);
+		f.revalidate();
 		f.repaint();
 	}
 
