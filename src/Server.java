@@ -24,6 +24,7 @@ public class Server implements Runnable
 		f.getContentPane().add(textArea);
 		f.setVisible(true);
 
+		Comms.serverStart();
 		while (true) {
 			Comms c = Comms.connect();
 			print(c.nameTime() + " : ACCEPTED CONNECTION");

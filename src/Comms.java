@@ -11,7 +11,6 @@ public class Comms implements Message, Serializable
 	{
 		this.sk = sk;
 	}
-
 	Comms()
 	{
 		try {
@@ -21,12 +20,19 @@ public class Comms implements Message, Serializable
 		}
 	}
 
+	public static void serverStart()
+	{
+		try {
+			sc = new ServerSocket(PORT);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static Comms connect()
 	{
 		Comms c = null;
-		try (
-				ServerSocket sc = new ServerSocket(PORT)
-		) {
+		try {
 			Socket sk = sc.accept();
 			c = new Comms(sk);
 		} catch (IOException ex) {
@@ -127,8 +133,8 @@ public class Comms implements Message, Serializable
 			ex.printStackTrace();
 		}
 	}
-
 	public static final int PORT = 2244;
+	private static ServerSocket sc;
 	private boolean open = true;
 	private Socket sk;
 	private InputStream in;
