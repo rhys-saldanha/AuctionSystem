@@ -36,6 +36,7 @@ public class Client
 			}
 		});
 		f.setSize(1000, 800);
+		f.setResizable(false);
 		f.setVisible(true);
 	}
 
