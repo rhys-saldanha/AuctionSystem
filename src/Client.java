@@ -16,9 +16,15 @@ public class Client
 
 	private void init()
 	{
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+			ex.printStackTrace();
+		}
 		this.f = new JFrame();
 		c.init();
 		gui = new ClientGUI(f, c);
+		gui.init();
 		f.setTitle("Client");
 		f.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		f.addWindowListener(new WindowAdapter()
@@ -29,7 +35,7 @@ public class Client
 				exit();
 			}
 		});
-		f.setSize(500, 500);
+		f.setSize(1000, 800);
 		f.setVisible(true);
 	}
 
