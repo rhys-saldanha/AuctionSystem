@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Server implements Runnable
@@ -18,6 +19,7 @@ public class Server implements Runnable
 		f.setTitle("Server");
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setSize(500, 500);
+		f.setContentPane(new ScrollPane());
 		textArea.setEditable(false);
 		f.getContentPane().add(textArea);
 		f.setVisible(true);
