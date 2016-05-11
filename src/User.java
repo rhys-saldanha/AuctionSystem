@@ -23,6 +23,11 @@ public class User
 		return familyName;
 	}
 
+	public int getHash()
+	{
+		return hash;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{

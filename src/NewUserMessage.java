@@ -1,13 +1,13 @@
 public class NewUserMessage implements Message
 {
-	NewUserMessage(String ID, String name, String familyName, int hash)
+	NewUserMessage(String ID, String name, String familyName, String password)
 	{
 		this.ID = ID;
 		this.name = name;
 		this.familyName = familyName;
-		this.hash = hash;
+		this.hash = (ID + password).hashCode();
 	}
 
-	String ID, name, familyName;
-	int hash;
+	final String ID, name, familyName;
+	final int hash;
 }

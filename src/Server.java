@@ -61,16 +61,22 @@ public class Server implements Runnable
 					}
 					//return error, user already exists
 				}
-				if (m instanceof StringMessage) {
-					StringMessage sm = (StringMessage) m;
-					if (sm.i == 0) {
-						c.sendMessage(sm);
-					}
-					if (sm.i == 2) {
+				if (m instanceof LoginMessage) {
+					LoginMessage lm = (LoginMessage) m;
+					exists:
+					{
 						for (User registeredUser : registeredUsers) {
-							c.sendMessage(new StringMessage(1, registeredUser.getID()));
+							if (registeredUser.getID().equals(lm.ID)) {
+								if (registeredUser.getHash() == lm.hash) {
+									c.sendMessage(new StringMessage("success"));
+									break exists;
+								} else {
+									c.sendMessage(new StringMessage("invalid password"));
+									break exists;
+								}
+							}
 						}
-						c.sendMessage(new StringMessage(0, ""));
+						c.sendMessage(new StringMessage("invalid username"));
 					}
 				}
 			}
@@ -82,6 +88,7 @@ public class Server implements Runnable
 		if (online < 1)
 			System.exit(0);
 	}
+
 	private static ConcurrentSkipListSet<User> registeredUsers = new ConcurrentSkipListSet<>(
 			(o1, o2) -> o1.hashCode() - o2.hashCode());
 	private static int online = 0;

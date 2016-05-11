@@ -47,6 +47,20 @@ public class Client
 		f.setResizable(false);
 		/* Shows window */
 		f.setVisible(true);
+		while (true) {
+			Message m = c.getMessage();
+			if (m != null) {
+				if (m instanceof StringMessage) {
+					StringMessage sm = (StringMessage) m;
+					if (sm.s.equals("success")) {
+						gui.setPanel(gui.makeRandomPanel());
+					}
+					if (sm.s.contains("invalid")) {
+						gui.makeErrorFrame(sm.s.toUpperCase());
+					}
+				}
+			}
+		}
 	}
 
 	private void exit()
