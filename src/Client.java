@@ -52,11 +52,33 @@ public class Client
 			if (m != null) {
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
-					if (sm.s.equals("success")) {
-						gui.setPanel(gui.makeRandomPanel());
+					if (sm.s.contains("register")) {
+						if (sm.s.contains("success")) {
+							gui.makeLoginPage();
+						}
+						if (sm.s.contains("exists")) {
+							gui.makeErrorFrame("User already exists");
+						}
 					}
-					if (sm.s.contains("invalid")) {
-						gui.makeErrorFrame(sm.s.toUpperCase());
+					if (sm.s.contains("login")) {
+						if (sm.s.contains("success")) {
+							gui.makeErrorFrame("Logged in successfully");
+						}
+						if (sm.s.contains("invalid")) {
+							if (sm.s.contains("password")) {
+								gui.makeErrorFrame("Invalid password");
+							}
+							if (sm.s.contains("username")) {
+								gui.makeErrorFrame("Invalid username");
+							}
+						}
+					}
+				}
+				if (m instanceof ObjectMessage) {
+					ObjectMessage om = (ObjectMessage) m;
+					if (om.getObject() instanceof User) {
+						gui.setUser((User) om.getObject());
+						gui.makeAuctionsPage();
 					}
 				}
 			}

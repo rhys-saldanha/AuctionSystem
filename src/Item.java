@@ -1,12 +1,18 @@
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class Item
+public class Item implements Serializable
 {
-	public Item(Integer ID, String title, String description, String userID, Integer reservePrice, Time startTime, Time closeTime)
+	public Item(String title, String description, String userID, Integer reservePrice, String category, Time startTime, Time closeTime)
+	{
+		this(userID + title, title, description, userID, reservePrice, category, startTime, closeTime);
+	}
+
+	public Item(String ID, String title, String description, String userID, Integer reservePrice, String category, Time startTime, Time closeTime)
 	{
 		this.ID = ID;
 		this.title = title;
@@ -15,7 +21,7 @@ public class Item
 		this.reservePrice = reservePrice;
 		this.startTime = startTime;
 		this.closeTime = closeTime;
-		categories = new ArrayList<>();
+		this.category = category;
 
 		bids = new PriorityQueue<>(new Comparator<Bid>()
 		{
@@ -36,14 +42,9 @@ public class Item
 		return false;
 	}
 
-	public boolean addCategory(String c)
+	public boolean setCategory(String c)
 	{
-		return ALLOWEDCATEGORIES.contains(c.toLowerCase()) && categories.add(c.toLowerCase());
-	}
-
-	public boolean removeCategory(String c)
-	{
-		return categories.remove(c);
+		return !(category = (ALLOWEDCATEGORIES.contains(c.toLowerCase())) ? c : "").equals("");
 	}
 
 	public String getTitle()
@@ -66,7 +67,7 @@ public class Item
 		return closeTime;
 	}
 
-	public Integer getID()
+	public String getID()
 	{
 		return ID;
 	}
@@ -109,9 +110,9 @@ public class Item
 	private final String userID;
 	private final Time startTime;
 	private final Time closeTime;
-	private final Integer ID;
+	private final String ID;
 	private final Integer reservePrice;
 	private final String description;
-	private final ArrayList<String> categories;
 	private final PriorityQueue<Bid> bids;
+	private String category;
 }

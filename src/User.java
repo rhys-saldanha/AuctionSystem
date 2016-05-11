@@ -1,4 +1,6 @@
-public class User
+import java.io.Serializable;
+
+public class User implements Serializable
 {
 	public User(String ID, String name, String familyName, int hash)
 	{
@@ -36,7 +38,7 @@ public class User
 		}
 
 		User user = (User) o;
-		return ID.equals(user.getID());
+		return ID.equals(user.getID()) && hash == (user.getHash());
 	}
 
 	private final String name;

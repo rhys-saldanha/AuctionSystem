@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.HashMap;
 
 public class Server implements Runnable
 {
@@ -49,34 +49,30 @@ public class Server implements Runnable
 				if (m instanceof NewUserMessage) {
 					NewUserMessage u = (NewUserMessage) m;
 					User user = new User(u.ID, u.name, u.familyName, u.hash);
-					exists:
-					{
-						for (User registeredUser : registeredUsers) {
-							if (registeredUser.equals(user)) {
-								break exists;
-							}
+					synchronized (registeredUsers) {
+						if (registeredUsers.containsKey(user.getID())) {
+							c.sendMessage(new StringMessage("register exists"));
+						} else {
+							registeredUsers.put(user.getID(), user);
+							c.sendMessage(new StringMessage("register success"));
+							print(c.nameTime() + " : " + user.getID() + " was registered");
 						}
-						registeredUsers.add(user);
-						print(c.nameTime() + " : " + user.getID() + " was registered");
 					}
-					//return error, user already exists
 				}
 				if (m instanceof LoginMessage) {
 					LoginMessage lm = (LoginMessage) m;
-					exists:
-					{
-						for (User registeredUser : registeredUsers) {
-							if (registeredUser.getID().equals(lm.ID)) {
-								if (registeredUser.getHash() == lm.hash) {
-									c.sendMessage(new StringMessage("success"));
-									break exists;
-								} else {
-									c.sendMessage(new StringMessage("invalid password"));
-									break exists;
-								}
+					synchronized (registeredUsers) {
+						if (registeredUsers.containsKey(lm.ID)) {
+							User u = registeredUsers.get(lm.ID);
+							if (u.getHash() == lm.hash) {
+								c.sendMessage(new StringMessage("login success"));
+								c.sendMessage(new ObjectMessage(u));
+							} else {
+								c.sendMessage(new StringMessage("login invalid password"));
 							}
+						} else {
+							c.sendMessage(new StringMessage("login invalid username"));
 						}
-						c.sendMessage(new StringMessage("invalid username"));
 					}
 				}
 			}
@@ -89,8 +85,8 @@ public class Server implements Runnable
 			System.exit(0);
 	}
 
-	private static ConcurrentSkipListSet<User> registeredUsers = new ConcurrentSkipListSet<>(
-			(o1, o2) -> o1.hashCode() - o2.hashCode());
+	private static HashMap<String, User> registeredUsers = new HashMap<>();
+	private static HashMap<String, Item> auctions = new HashMap<>();
 	private static int online = 0;
 	private static JFrame f = new JFrame();
 	private static JTextArea textArea = new JTextArea();

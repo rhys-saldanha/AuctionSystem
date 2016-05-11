@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.sql.Time;
 
-public class Bid
+public class Bid implements Serializable
 {
 	public Bid(String userID, Time time, Integer amount)
 	{

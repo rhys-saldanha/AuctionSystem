@@ -18,10 +18,10 @@ public class ClientGUI
 	public void init()
 	{
 		/* Sets initial panel to login page */
-		setPanel(makeLoginPage());
+		makeLoginPage();
 	}
 
-	public JPanel makeLoginPage()
+	public void makeLoginPage()
 	{
 		JPanel p = new JPanel();
 		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -32,20 +32,36 @@ public class ClientGUI
 		gbc.weightx = 0.5;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		gbc.gridwidth = 2;
-		gbc.insets = new Insets(0, 200, 0, 200);
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
-
-		JLabel l_login = new JLabel("LOGIN");
 		gbc.gridy = 0;
-		p.add(l_login, gbc);
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("LOGIN"), gbc);
 
-		JTextField tf_username = new JTextField("Username");
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
 		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Username"), gbc);
+
+		JTextField tf_username = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_username, gbc);
 
-		JTextField tf_password = new JPasswordField("Password");
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
 		gbc.gridy = 2;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Password"), gbc);
+
+		JTextField tf_password = new JPasswordField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_password, gbc);
 
 		gbc.gridwidth = 1;
@@ -53,16 +69,13 @@ public class ClientGUI
 
 		JButton b_login = new JButton("Login");
 		gbc.gridy = 3;
-		gbc.insets = new Insets(0, 200, 0, 20);
+		gbc.insets = new Insets(0, 0, 0, 20);
 		p.add(b_login, gbc);
 
-		JButton b_newUser = new JButton("New User");
-		gbc.gridx = 1;
+		JButton b_newUser = new JButton("New User?");
+		gbc.gridx = 2;
 		gbc.insets = new Insets(0, 20, 0, 200);
 		p.add(b_newUser, gbc);
-
-		tf_username.addMouseListener(new DeleteDefault(tf_username));
-		tf_password.addMouseListener(new DeleteDefault(tf_password));
 
 		b_login.addActionListener(new ActionListener()
 		{
@@ -81,7 +94,7 @@ public class ClientGUI
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				setPanel(makeNewUserPage());
+				makeNewUserPage();
 			}
 		});
 
@@ -96,10 +109,10 @@ public class ClientGUI
 		c.gridy = 2;       //third row
 		p.add(button, c);*/
 
-		return p;
+		this.setPanel(p);
 	}
 
-	public JPanel makeNewUserPage()
+	public void makeNewUserPage()
 	{
 		JPanel p = new JPanel();
 		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -110,75 +123,180 @@ public class ClientGUI
 		gbc.weightx = 0.5;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		gbc.gridwidth = 2;
-		gbc.insets = new Insets(0, 200, 0, 200);
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
-
-		JLabel l_login = new JLabel("REGISTER");
 		gbc.gridy = 0;
-		p.add(l_login, gbc);
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("REGISTER"), gbc);
 
-		JTextField tf_name = new JTextField("Name");
+		/* Name */
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
 		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Name"), gbc);
+
+		JTextField tf_name = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_name, gbc);
 
-		JTextField tf_familyname = new JTextField("Family name");
-		gbc.gridy++;
+		/* Family name */
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Family name"), gbc);
+
+		JTextField tf_familyname = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_familyname, gbc);
 
-		JTextField tf_username = new JTextField("Username");
-		gbc.gridy++;
+		/* User name */
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Username"), gbc);
+
+		JTextField tf_username = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_username, gbc);
 
-		JTextField tf_password = new JPasswordField("Password");
-		gbc.gridy++;
+		/* Password */
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Password"), gbc);
+
+		JTextField tf_password = new JPasswordField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_password, gbc);
 
-		JTextField tf_confirmPassword = new JPasswordField("Password");
-		gbc.gridy++;
+		/* Confirm password */
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Confirm Password"), gbc);
+
+		JTextField tf_confirmPassword = new JPasswordField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 5;
+		gbc.insets = new Insets(0, 0, 0, 200);
 		p.add(tf_confirmPassword, gbc);
 
 		gbc.gridwidth = 1;
 		gbc.insets = null;
 
-		JButton b_login = new JButton("Login");
-		gbc.gridy++;
-		gbc.insets = new Insets(0, 200, 0, 20);
+		JButton b_login = new JButton("Return to login");
+		gbc.gridy = 6;
+		gbc.insets = new Insets(0, 0, 0, 20);
 		p.add(b_login, gbc);
 
 		JButton b_newUser = new JButton("Register");
-		gbc.gridx = 1;
+		gbc.gridx = 2;
 		gbc.insets = new Insets(0, 20, 0, 200);
 		p.add(b_newUser, gbc);
-
-		tf_username.addMouseListener(new DeleteDefault(tf_username));
-		tf_name.addMouseListener(new DeleteDefault(tf_name));
-		tf_familyname.addMouseListener(new DeleteDefault(tf_familyname));
-		tf_password.addMouseListener(new DeleteDefault(tf_password));
-		tf_confirmPassword.addMouseListener(new DeleteDefault(tf_confirmPassword));
 
 		b_newUser.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if (checkEmpty(tf_password) && checkEmpty(tf_confirmPassword)
-						&& !tf_password.getText().equals(tf_confirmPassword.getText())) {
+				if (!tf_password.getText().equals("") && !tf_password.getText().equals(tf_confirmPassword.getText())) {
 					makeRed(tf_confirmPassword);
 					makeErrorFrame("Password do not match");
-				} else if (checkEmpty(tf_username) && checkEmpty(tf_name)
+				}
+				if (checkEmpty(tf_username) && checkEmpty(tf_name) && checkEmpty(tf_password) && checkEmpty(tf_confirmPassword)
 						&& checkEmpty(tf_familyname)) {
 					c.sendMessage(new NewUserMessage(tf_username.getText(), tf_name.getText(),
 							tf_familyname.getText(), tf_password.getText()));
-					setPanel(makeLoginPage());
 				}
 			}
 		});
 
-		return p;
+		b_login.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				makeLoginPage();
+			}
+		});
+
+		this.setPanel(p);
 	}
 
-	public JPanel makeRandomPanel()
+	public void makeMainPage()
+	{
+		makeTopBar();
+
+		JPanel p = new JPanel(new GridBagLayout());
+		p.setBackground(Color.GREEN);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+
+		gbc.weighty = 0.1;
+		gbc.gridy = 0;
+
+		gbc.weightx = 0.1;
+		gbc.gridx = 0;
+		p.add(new JLabel("AUCTIONS"));
+
+		gbc.weightx = 0.9;
+		gbc.gridx = 1;
+		p.add(topBar, gbc);
+
+		gbc.weighty = 0.9;
+		gbc.gridy = 1;
+
+		gbc.weightx = 0.1;
+		gbc.gridx = 0;
+		p.add(makeRandomPanel(), gbc);
+
+		gbc.weightx = 0.9;
+		gbc.gridx = 1;
+		p.add(makeRandomPanel(), gbc);
+
+		this.setPanel(p);
+	}
+
+	private void makeTopBar()
+	{
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+
+		JButton b_items = new JButton("Show auctions");
+		gbc.gridx = 1;
+		p.add(b_items, gbc);
+
+		JButton b_sell = new JButton("Sell an item");
+		gbc.gridx = 2;
+		p.add(b_sell, gbc);
+
+		JButton b_user = new JButton(u.getName() + " " + u.getFamilyName());
+		gbc.gridx = 3;
+		p.add(b_user, gbc);
+
+		this.topBar = p;
+	}
+
+	private JPanel makeRandomPanel()
 	{
 		JPanel p = new JPanel();
 		Random rand = new Random();
@@ -191,40 +309,10 @@ public class ClientGUI
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				setPanel(makeLoginPage());
+				makeLoginPage();
 			}
 		});
 		return p;
-	}
-
-	public JPanel makeScrollPanel()
-	{
-		JPanel panels = new JPanel();
-		JPanel out = new JPanel();
-		panels.setLayout(new GridBagLayout());
-
-		GridBagConstraints gbc = new GridBagConstraints();
-
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.ipady = 50;
-		gbc.weightx = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-
-		for (int i = 0; i < 20; i++) {
-			JPanel x = new JPanel();
-			Random rand = new Random();
-			float r = rand.nextFloat();
-			float g = rand.nextFloat();
-			float b = rand.nextFloat();
-			x.setBackground(new Color(r, g, b));
-			panels.add(x, gbc);
-			gbc.gridy++;
-		}
-
-		out.add(new JScrollPane(panels));
-
-		return out;
 	}
 
 	public void makeErrorFrame(String str)
@@ -236,7 +324,7 @@ public class ClientGUI
 	{
 		if (tf.getText().equals("")) {
 			makeRed(tf);
-			makeErrorFrame("Cannot leave " + tf.getName() + " field empty");
+			makeErrorFrame("Cannot leave field empty");
 			return false;
 		}
 		makeDefault(tf);
@@ -253,41 +341,27 @@ public class ClientGUI
 		tf.setBorder(borDefault);
 	}
 
-	public void setPanel(JPanel p)
+	private void setPanel(JPanel p)
 	{
 		f.setContentPane(p);
 		f.revalidate();
 		f.repaint();
 	}
 
-	private class DeleteDefault extends MouseAdapter
+	public void refresh()
 	{
-		DeleteDefault(JTextField tf)
-		{
-			this(tf, tf.getText());
-		}
+		f.revalidate();
+		f.repaint();
+	}
 
-		DeleteDefault(JTextField tf, String str)
-		{
-			this.tf = tf;
-			this.str = str;
-		}
-
-		public void mouseClicked(MouseEvent ev)
-		{
-			if (tf.getText().equals(str)) {
-				tf.setText("");
-				f.revalidate();
-				f.repaint();
-			}
-		}
-
-		private final JTextField tf;
-
-		private final String str;
+	public void setUser(User u)
+	{
+		this.u = u;
 	}
 
 	public final Comms c;
 	public final JFrame f;
 	private final Border borDefault = (new JTextField()).getBorder();
+	private User u = null;
+	private JPanel topBar;
 }
