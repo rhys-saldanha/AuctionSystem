@@ -14,6 +14,16 @@ public class Bid
 		return amount;
 	}
 
+	public String getUserID()
+	{
+		return userID;
+	}
+
+	public Time getTime()
+	{
+		return time;
+	}
+
 	private final String userID;
 	private final Time time;
 	private final Integer amount;
