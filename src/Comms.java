@@ -121,16 +121,18 @@ public class Comms implements Message, Serializable
 
 	private void close(boolean b)
 	{
-		open = false;
-		if (b) {
-			this.sendMessage(new ExitMessage());
-		}
-		try {
-			in.close();
-			out.close();
-			sk.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		if (isOpen()) {
+			if (b) {
+				this.sendMessage(new ExitMessage());
+			}
+			try {
+				in.close();
+				out.close();
+				sk.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			open = false;
 		}
 	}
 	public static final int PORT = 2244;

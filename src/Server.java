@@ -75,14 +75,31 @@ public class Server implements Runnable
 						}
 					}
 				}
+				if (m instanceof StringMessage) {
+					StringMessage sm = (StringMessage) m;
+					if (sm.s.equals("auctions")) {
+						c.sendMessage(new ObjectMessage(auctions));
+					}
+				}
 			}
 //			online--;
 		} catch (Exception ex) {
+			exit();
 			ex.printStackTrace();
 		}
 		print(c.nameTime() + " : DISCONNECTED");
 		if (online < 1)
 			System.exit(0);
+	}
+
+	private void exit()
+	{
+		/* Closes Comms */
+		c.close();
+		/* Disposes window */
+		f.dispose();
+		/* Forces close of thread and all connected threads */
+		System.exit(0);
 	}
 
 	private static HashMap<String, User> registeredUsers = new HashMap<>();

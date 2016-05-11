@@ -1,10 +1,13 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class ClientGUI
@@ -243,8 +246,6 @@ public class ClientGUI
 
 	public void makeMainPage()
 	{
-		makeTopBar();
-
 		JPanel p = new JPanel(new GridBagLayout());
 		p.setBackground(Color.GREEN);
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -270,12 +271,88 @@ public class ClientGUI
 
 		gbc.weightx = 0.9;
 		gbc.gridx = 1;
-		p.add(makeRandomPanel(), gbc);
+		p.add(content, gbc);
 
 		this.setPanel(p);
 	}
 
-	private void makeTopBar()
+	public void makeAuctionContent()
+	{
+		JPanel p = new JPanel(new BorderLayout());
+
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+
+		DefaultTableModel model = new DefaultTableModel(new Object[]{"ID", "Title", "UserID", "Reserve Price",
+				"Highest bid", "Category", "Close Time"}, 0)
+		{
+			@Override
+			public boolean isCellEditable(int r, int c)
+			{
+				return false;
+			}
+		};
+		for (Map.Entry<String, Item> entry : auctions.entrySet()) {
+			Item i = entry.getValue();
+			model.addRow(new Object[]{i.getID(), i.getTitle(), i.getUserID(), i.getReservePrice(),
+					i.getHighestBid(), i.getCategory(), i.getCloseTime()});
+		}
+
+		JTable t = new JTable(model);
+
+		p.add(t.getTableHeader(), BorderLayout.NORTH);
+		p.add(t, BorderLayout.CENTER);
+
+		this.content = p;
+	}
+
+	public void makeAddItemContent()
+	{
+		JPanel p = new JPanel();
+		p.setBackground(Color.WHITE);
+		GridBagConstraints gbc = new GridBagConstraints();
+
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Title"), gbc);
+
+		JTextField tf_title = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.insets = new Insets(0, 0, 0, 200);
+		p.add(tf_title, gbc);
+
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Reserve price (£)"), gbc);
+
+		JTextField tf_reservePrice = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 0, 0, 200);
+		p.add(tf_reservePrice, gbc);
+
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.insets = new Insets(0, 200, 0, 0);
+		p.add(new JLabel("Reserve price (£)"), gbc);
+
+		/*JComboBox<String> c_category = new JComboBox<>(Item.ALLOWEDCATEGORIES);
+		gbc.gridwidth = 2;
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		gbc.insets = new Insets(0, 0, 0, 200);
+		p.add(tf_reservePrice, gbc);*/
+	}
+
+	public void makeTopBar()
 	{
 		JPanel p = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -292,6 +369,15 @@ public class ClientGUI
 		JButton b_user = new JButton(u.getName() + " " + u.getFamilyName());
 		gbc.gridx = 3;
 		p.add(b_user, gbc);
+
+		b_items.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				c.sendMessage(new StringMessage("auctions"));
+			}
+		});
 
 		this.topBar = p;
 	}
@@ -359,9 +445,16 @@ public class ClientGUI
 		this.u = u;
 	}
 
+	public void setAuctions(HashMap<String, Item> auctions)
+	{
+		this.auctions = auctions;
+	}
+
 	public final Comms c;
 	public final JFrame f;
 	private final Border borDefault = (new JTextField()).getBorder();
 	private User u = null;
+	private HashMap<String, Item> auctions;
 	private JPanel topBar;
+	private JPanel content;
 }

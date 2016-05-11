@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 
 public class Client
 {
@@ -47,7 +48,7 @@ public class Client
 		f.setResizable(false);
 		/* Shows window */
 		f.setVisible(true);
-		while (true) {
+		while (c.isOpen()) {
 			Message m = c.getMessage();
 			if (m != null) {
 				if (m instanceof StringMessage) {
@@ -78,11 +79,18 @@ public class Client
 					ObjectMessage om = (ObjectMessage) m;
 					if (om.getObject() instanceof User) {
 						gui.setUser((User) om.getObject());
-						gui.makeAuctionsPage();
+						gui.makeTopBar();
+						c.sendMessage(new StringMessage("auctions"));
+					}
+					if (om.getObject() instanceof HashMap) {
+						gui.setAuctions((HashMap<String, Item>) om.getObject());
+						gui.makeAuctionContent();
+						gui.makeMainPage();
 					}
 				}
 			}
 		}
+		this.exit();
 	}
 
 	private void exit()

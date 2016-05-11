@@ -1,18 +1,17 @@
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.Date;
 
 public class Item implements Serializable
 {
-	public Item(String title, String description, String userID, Integer reservePrice, String category, Time startTime, Time closeTime)
+	public Item(String title, String description, String userID, Integer reservePrice, String category, Date startTime, Date closeTime)
 	{
 		this(userID + title, title, description, userID, reservePrice, category, startTime, closeTime);
 	}
 
-	public Item(String ID, String title, String description, String userID, Integer reservePrice, String category, Time startTime, Time closeTime)
+	public Item(String ID, String title, String description, String userID, Integer reservePrice, String category, Date startTime, Date closeTime)
 	{
 		this.ID = ID;
 		this.title = title;
@@ -23,23 +22,29 @@ public class Item implements Serializable
 		this.closeTime = closeTime;
 		this.category = category;
 
-		bids = new PriorityQueue<>(new Comparator<Bid>()
+		/*bids = new PriorityQueue<>(new Comparator<Bid>()
 		{
 			@Override
 			public int compare(Bid o1, Bid o2)
 			{
 				return o2.getAmount() - o1.getAmount();
 			}
-		});
+		});*/
 	}
 
-	public boolean addBid(Bid b)
+	/*public boolean addBid(Bid b)
 	{
 		if (bids.peek() == null || b.getAmount() > bids.peek().getAmount()) {
 			bids.add(b);
 			return true;
 		}
 		return false;
+	}*/
+
+	public int getHighestBid()
+	{
+//		return bids.peek();
+		return 3;
 	}
 
 	public boolean setCategory(String c)
@@ -57,12 +62,12 @@ public class Item implements Serializable
 		return userID;
 	}
 
-	public Time getStartTime()
+	public Date getStartTime()
 	{
 		return startTime;
 	}
 
-	public Time getCloseTime()
+	public Date getCloseTime()
 	{
 		return closeTime;
 	}
@@ -80,6 +85,11 @@ public class Item implements Serializable
 	public String getDescription()
 	{
 		return description;
+	}
+
+	public String getCategory()
+	{
+		return category;
 	}
 
 	public static final ArrayList<String> ALLOWEDCATEGORIES;
@@ -108,11 +118,11 @@ public class Item implements Serializable
 
 	private final String title;
 	private final String userID;
-	private final Time startTime;
-	private final Time closeTime;
+	private final Date startTime;
+	private final Date closeTime;
 	private final String ID;
 	private final Integer reservePrice;
 	private final String description;
-	private final PriorityQueue<Bid> bids;
+	//	private final PriorityQueue<Bid> bids;
 	private String category;
 }
