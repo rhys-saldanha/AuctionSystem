@@ -8,6 +8,7 @@ public class User implements Serializable
 		this.name = name;
 		this.familyName = familyName;
 		this.hash = hash;
+		this.online = false;
 	}
 
 	public String getName()
@@ -30,6 +31,16 @@ public class User implements Serializable
 		return hash;
 	}
 
+	public boolean isOnline()
+	{
+		return this.online;
+	}
+
+	public void setOnline(boolean b)
+	{
+		this.online = b;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -45,4 +56,5 @@ public class User implements Serializable
 	private final String familyName;
 	private final int hash;
 	private final String ID;
+	private boolean online;
 }

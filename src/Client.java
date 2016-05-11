@@ -45,7 +45,7 @@ public class Client
 		/* Sets the size of the window */
 		f.setSize(1000, 800);
 		/* Makes the window not resizable */
-		f.setResizable(false);
+		f.setResizable(true);
 		/* Shows window */
 		f.setVisible(true);
 		while (c.isOpen()) {
@@ -72,6 +72,9 @@ public class Client
 							if (sm.s.contains("username")) {
 								gui.makeErrorFrame("Invalid username");
 							}
+							if (sm.s.contains("logged in")) {
+								gui.makeErrorFrame("User already logged in");
+							}
 						}
 					}
 				}
@@ -79,7 +82,7 @@ public class Client
 					ObjectMessage om = (ObjectMessage) m;
 					if (om.getObject() instanceof User) {
 						gui.setUser((User) om.getObject());
-						gui.makeTopBar();
+						gui.makeNavBar();
 						c.sendMessage(new StringMessage("auctions"));
 					}
 					if (om.getObject() instanceof HashMap) {
@@ -97,6 +100,8 @@ public class Client
 	{
 		/* Closes Comms */
 		c.close();
+		/* Logs out user */
+		gui.logOut();
 		/* Disposes window */
 		f.dispose();
 		/* Forces close of thread and all connected threads */
