@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Client
 {
@@ -55,6 +55,7 @@ public class Client
 					StringMessage sm = (StringMessage) m;
 					if (sm.s.contains("register")) {
 						if (sm.s.contains("success")) {
+							gui.makeErrorFrame("Registered successfully");
 							gui.makeLoginPage();
 						}
 						if (sm.s.contains("exists")) {
@@ -77,6 +78,15 @@ public class Client
 							}
 						}
 					}
+					if (sm.s.contains("auction")) {
+						if (sm.s.contains("success")) {
+							gui.makeErrorFrame("Registered item successfully");
+							gui.makeMainPage();
+						}
+						if (sm.s.contains("exists")) {
+							gui.makeErrorFrame("You already have an item with this name");
+						}
+					}
 				}
 				if (m instanceof ObjectMessage) {
 					ObjectMessage om = (ObjectMessage) m;
@@ -85,8 +95,8 @@ public class Client
 						gui.makeNavBar();
 						c.sendMessage(new StringMessage("auctions"));
 					}
-					if (om.getObject() instanceof HashMap) {
-						gui.setAuctions((HashMap<String, Item>) om.getObject());
+					if (om.getObject() instanceof ArrayList) {
+						gui.setAuctions((ArrayList<Item>) om.getObject());
 						gui.makeAuctionContent();
 						gui.makeMainPage();
 					}
@@ -98,10 +108,10 @@ public class Client
 
 	private void exit()
 	{
-		/* Closes Comms */
-		c.close();
 		/* Logs out user */
 		gui.logOut();
+		/* Closes Comms */
+		c.close();
 		/* Disposes window */
 		f.dispose();
 		/* Forces close of thread and all connected threads */

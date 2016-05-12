@@ -1,17 +1,17 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 
 public class Item implements Serializable
 {
-	public Item(String title, String description, String userID, Integer reservePrice, String category, Date startTime, Date closeTime)
+	Item(String title, String description, String userID, Double reservePrice, String category, Calendar startTime, Calendar closeTime)
 	{
 		this(userID + title, title, description, userID, reservePrice, category, startTime, closeTime);
 	}
 
-	public Item(String ID, String title, String description, String userID, Integer reservePrice, String category, Date startTime, Date closeTime)
+	Item(String ID, String title, String description, String userID, Double reservePrice, String category, Calendar startTime, Calendar closeTime)
 	{
 		this.ID = ID;
 		this.title = title;
@@ -44,7 +44,7 @@ public class Item implements Serializable
 	public int getHighestBid()
 	{
 //		return bids.peek();
-		return 3;
+		return 7;
 	}
 
 	public boolean setCategory(String c)
@@ -62,12 +62,12 @@ public class Item implements Serializable
 		return userID;
 	}
 
-	public Date getStartTime()
+	public Calendar getStartTime()
 	{
 		return startTime;
 	}
 
-	public Date getCloseTime()
+	public Calendar getCloseTime()
 	{
 		return closeTime;
 	}
@@ -77,7 +77,7 @@ public class Item implements Serializable
 		return ID;
 	}
 
-	public Integer getReservePrice()
+	public Double getReservePrice()
 	{
 		return reservePrice;
 	}
@@ -93,6 +93,7 @@ public class Item implements Serializable
 	}
 
 	public static final ArrayList<String> ALLOWEDCATEGORIES;
+	private static final long serialVersionUID = -2125982783387060468L;
 
 	static {
 		ALLOWEDCATEGORIES = new ArrayList<>();
@@ -118,10 +119,10 @@ public class Item implements Serializable
 
 	private final String title;
 	private final String userID;
-	private final Date startTime;
-	private final Date closeTime;
+	private final Calendar startTime;
+	private final Calendar closeTime;
 	private final String ID;
-	private final Integer reservePrice;
+	private final Double reservePrice;
 	private final String description;
 	//	private final PriorityQueue<Bid> bids;
 	private String category;

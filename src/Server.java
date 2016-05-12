@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -29,7 +30,6 @@ public class Server implements Runnable
 		while (true) {
 			Comms c = Comms.connect();
 			print(c.nameTime(), "ACCEPTED CONNECTION");
-			online++;
 			c.init();
 			Thread x = new Thread(new Server(c));
 			x.start();
@@ -52,8 +52,8 @@ public class Server implements Runnable
 		try {
 			while (c.isOpen()) {
 				Message m = c.getMessage();
-				if (m instanceof NewUserMessage) {
-					NewUserMessage u = (NewUserMessage) m;
+				if (m instanceof RegisterUserMessage) {
+					RegisterUserMessage u = (RegisterUserMessage) m;
 					User user = new User(u.ID, u.name, u.familyName, u.hash);
 					synchronized (registeredUsers) {
 						if (registeredUsers.containsKey(user.getID())) {
@@ -76,7 +76,8 @@ public class Server implements Runnable
 								c.sendMessage(new StringMessage("login success"));
 								c.sendMessage(new ObjectMessage(u));
 								u.setOnline(true);
-								print(c.nameTime(), u.getID() + " was logged in");
+								online++;
+								print(c.nameTime(), u.getID() + " logged in");
 							} else {
 								c.sendMessage(new StringMessage("login invalid password"));
 							}
@@ -85,41 +86,62 @@ public class Server implements Runnable
 						}
 					}
 				}
+				if (m instanceof RegisterItemMessage) {
+					print(c.nameTime(), "sent register item message");
+					RegisterItemMessage rim = (RegisterItemMessage) m;
+					if (!auctions.containsKey(rim.getID())) {
+						synchronized (auctions) {
+							auctions.put(rim.getID(), rim.getItem());
+						}
+						synchronized (runningAuctions) {
+							runningAuctions.add(rim.getItem());
+						}
+						c.sendMessage(new StringMessage("auction success"));
+					} else {
+						c.sendMessage(new StringMessage("auction exists"));
+					}
+				}
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
 					if (sm.s.equals("auctions")) {
-						c.sendMessage(new ObjectMessage(auctions));
+						synchronized (runningAuctions) {
+							c.sendMessage(new ObjectMessage(new ArrayList<Item>(runningAuctions)));
+						}
 					}
 				}
 				if (m instanceof LogoutMessage) {
 					LogoutMessage lo = (LogoutMessage) m;
-					User u = registeredUsers.get(lo.getUser().getID());
-					u.setOnline(false);
+					synchronized (registeredUsers) {
+						User u = registeredUsers.get(lo.getUser().getID());
+						u.setOnline(false);
+						print(c.nameTime(), u.getID() + " logged out");
+					}
 				}
 			}
-//			online--;
+			online--;
 		} catch (Exception ex) {
-			exit();
 			ex.printStackTrace();
 		}
 		print(c.nameTime(), "DISCONNECTED");
-		if (online < 1)
-			System.exit(0);
+		/* If last man standing */
+		if (online < 1) {
+			synchronized (registeredUsers) {
+				for (String u : registeredUsers.keySet()) {
+					User user = registeredUsers.get(u);
+					user.setOnline(false);
+				}
+			}
+		}
+
 	}
 
-	private void exit()
-	{
-		/* Closes Comms */
-		c.close();
-		/* Disposes window */
-		f.dispose();
-		/* Forces close of thread and all connected threads */
-		System.exit(0);
-	}
-
+	/* Easier to check that no two users have the same ID */
 	private static HashMap<String, User> registeredUsers = new HashMap<>();
+	/* Easier to check that no two items have the same ID */
 	private static HashMap<String, Item> auctions = new HashMap<>();
-	private static PriorityQueue<Item> runningAuctions = new PriorityQueue<>((o1, o2) -> (int) (o1.getCloseTime().getTime() - o2.getCloseTime().getTime()));
+	/* Easier to find auctions that have ended */
+	private static PriorityQueue<Item> runningAuctions = new PriorityQueue<>((o1, o2) ->
+			(int) (o1.getCloseTime().compareTo(o2.getCloseTime())));
 	private static int online = 0;
 	private static JFrame f = new JFrame();
 	private static JTextArea textArea = new JTextArea();

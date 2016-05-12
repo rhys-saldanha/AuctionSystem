@@ -3,9 +3,10 @@ import java.sql.Time;
 
 public class Bid implements Serializable
 {
-	public Bid(String userID, Time time, Integer amount)
+	public Bid(String userID, String itemID, Time time, Integer amount)
 	{
 		this.userID = userID;
+		this.itemID = itemID;
 		this.time = time;
 		this.amount = amount;
 	}
@@ -28,4 +29,5 @@ public class Bid implements Serializable
 	private final String userID;
 	private final Time time;
 	private final Integer amount;
+	private final String itemID;
 }

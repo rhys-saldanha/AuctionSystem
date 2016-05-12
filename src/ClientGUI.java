@@ -6,8 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 public class ClientGUI
@@ -26,9 +32,8 @@ public class ClientGUI
 
 	public void makeLoginPage()
 	{
-		JPanel p = new JPanel();
+		JPanel p = new JPanel(new GridBagLayout());
 		p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		p.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		/* Sets GridBagConstraints used for whole pane */
@@ -90,9 +95,7 @@ public class ClientGUI
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				checkEmpty(tf_username);
-				checkEmpty(tf_password);
-				if (!tf_username.getText().equals("") && !tf_password.getText().equals("")) {
+				if (checkEmpty(tf_username) && checkEmpty(tf_password)) {
 					c.sendMessage(new LoginMessage(tf_username.getText(), tf_password.getText()));
 				}
 			}
@@ -231,7 +234,7 @@ public class ClientGUI
 				}
 				if (checkEmpty(tf_username) && checkEmpty(tf_name) && checkEmpty(tf_password) && checkEmpty(tf_confirmPassword)
 						&& checkEmpty(tf_familyname)) {
-					c.sendMessage(new NewUserMessage(tf_username.getText(), tf_name.getText(),
+					c.sendMessage(new RegisterUserMessage(tf_username.getText(), tf_name.getText(),
 							tf_familyname.getText(), tf_password.getText()));
 				}
 			}
@@ -284,6 +287,7 @@ public class ClientGUI
 	public void makeAuctionContent()
 	{
 		JPanel p = new JPanel(new BorderLayout());
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
@@ -297,10 +301,10 @@ public class ClientGUI
 				return false;
 			}
 		};
-		for (Map.Entry<String, Item> entry : auctions.entrySet()) {
-			Item i = entry.getValue();
+		for (Object o : auctions) {
+			Item i = (Item) o;
 			model.addRow(new Object[]{i.getID(), i.getTitle(), i.getUserID(), i.getReservePrice(),
-					i.getHighestBid(), i.getCategory(), i.getCloseTime()});
+					i.getHighestBid(), i.getCategory(), dateFormat.format(i.getCloseTime().getTime())});
 		}
 
 		JTable t = new JTable(model);
@@ -318,36 +322,44 @@ public class ClientGUI
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 0.5;
 
+		/* Title */
 		gbc.gridwidth = 1;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.insets = new Insets(0, 200, 0, 0);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
 		p.add(new JLabel("Title"), gbc);
 
 		JTextField tf_title = new JTextField();
 		gbc.gridwidth = 2;
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		gbc.insets = new Insets(0, 0, 0, 200);
+		gbc.gridx = 2;
+		gbc.gridy = 1;
 		p.add(tf_title, gbc);
 
+		/* Description */
 		gbc.gridwidth = 1;
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.insets = new Insets(0, 200, 0, 0);
+		gbc.gridx = 1;
+		gbc.gridy++;
+		p.add(new JLabel("Description"), gbc);
+
+		JTextField tf_description = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 2;
+		p.add(tf_description, gbc);
+
+		/* Reserve Price */
+		gbc.gridwidth = 1;
+		gbc.gridx = 1;
+		gbc.gridy++;
 		p.add(new JLabel("Reserve price (£)"), gbc);
 
 		JTextField tf_reservePrice = new JTextField();
 		gbc.gridwidth = 2;
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		gbc.insets = new Insets(0, 0, 0, 200);
+		gbc.gridx = 2;
 		p.add(tf_reservePrice, gbc);
 
+		/* Category */
 		gbc.gridwidth = 1;
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.insets = new Insets(0, 200, 0, 0);
+		gbc.gridx = 1;
+		gbc.gridy++;
 		p.add(new JLabel("Category"), gbc);
 
 		JComboBox<String> c_category = new JComboBox<>();
@@ -355,23 +367,143 @@ public class ClientGUI
 			c_category.addItem(s);
 		}
 		gbc.gridwidth = 2;
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		gbc.insets = new Insets(0, 0, 0, 200);
+		gbc.gridx = 2;
+		c_category.setSelectedItem("other");
 		p.add(c_category, gbc);
 
+		/* Close Time */
 		gbc.gridwidth = 1;
-		gbc.insets = null;
-
 		gbc.gridx = 1;
 		gbc.gridy++;
-		gbc.insets = new Insets(0, 0, 0, 20);
-		p.add(new JPanel(), gbc);
+		p.add(new JLabel("Close Time"), gbc);
+
+		JPanel time = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc2 = new GridBagConstraints();
+
+		/* Sets GridBagConstraints used for whole pane */
+		gbc2.weightx = 0.5;
+		gbc2.fill = GridBagConstraints.HORIZONTAL;
+
+		/* Hour */
+		JComboBox<Integer> c_hour = new JComboBox<>();
+		for (int i = 0; i < 24; i++) {
+			c_hour.addItem(i);
+		}
+		gbc2.gridx = 0;
+		gbc2.gridy = 0;
+		c_hour.setSelectedItem(LocalTime.now().getHour());
+		time.add(c_hour, gbc2);
+
+		/* : */
+		gbc2.gridx++;
+		time.add(new JLabel(" :"), gbc2);
+
+		/* Minute */
+		JComboBox<Integer> c_min = new JComboBox<>();
+		for (int i = 0; i < 60; i++) {
+			c_min.addItem(i);
+		}
+		gbc2.gridx++;
+		c_min.setSelectedItem(LocalTime.now().getMinute() + 1);
+		time.add(c_min, gbc2);
+
+		/* - */
+		gbc2.gridx++;
+		time.add(new JLabel(" -"), gbc2);
+
+		/* Day */
+		JComboBox<Integer> c_day = new JComboBox<>();
+		for (int i = 1; i < 32; i++) {
+			c_day.addItem(i);
+		}
+		gbc2.gridx++;
+		c_day.setSelectedItem(LocalDate.now().getDayOfMonth());
+		time.add(c_day, gbc2);
+
+		/* / */
+		gbc2.gridx++;
+		time.add(new JLabel(" /"), gbc2);
+
+		/* Month */
+		JComboBox<Integer> c_month = new JComboBox<>();
+		for (int i = 1; i < 13; i++) {
+			c_month.addItem(i);
+		}
+		gbc2.gridx++;
+		c_month.setSelectedItem(LocalDate.now().getMonthValue());
+		time.add(c_month, gbc2);
+
+		/* / */
+		gbc2.gridx++;
+		time.add(new JLabel(" /"), gbc2);
+
+		/* Year */
+		JComboBox<Integer> c_year = new JComboBox<>();
+		for (int i = LocalDate.now().getYear(); i < LocalDate.now().getYear() + 2; i++) {
+			c_year.addItem(i);
+		}
+		gbc2.gridx++;
+		c_year.setSelectedItem(LocalDate.now().getYear());
+		time.add(c_year, gbc2);
+
+		gbc.gridwidth = 2;
+		gbc.gridx = 2;
+		p.add(time, gbc);
 
 		JButton b_newUser = new JButton("Register Item");
-		gbc.gridx++;
-		gbc.insets = new Insets(0, 20, 0, 200);
+		gbc.gridy++;
 		p.add(b_newUser, gbc);
+
+		/* Padding */
+		gbc.gridheight = gbc.gridy + 1;
+		gbc.gridwidth = 1;
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		p.add(new JPanel(), gbc);
+
+		gbc.gridx = 4;
+		p.add(new JPanel(), gbc);
+
+		b_newUser.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (checkEmpty(tf_title) && checkEmpty(tf_reservePrice)) {
+					String regex = "[0-9]+([.][0-9]{1,2})?";
+					if (tf_reservePrice.getText().matches(regex)) {
+						int year = (Integer) c_year.getSelectedItem();
+						int month = c_month.getSelectedIndex() + 1;
+						int day = c_day.getSelectedIndex() + 1;
+						if (isDateValid(year, month, day)) {
+							Double price = Double.parseDouble(tf_reservePrice.getText());
+							int hour = c_hour.getSelectedIndex() + 1;
+							int min = c_min.getSelectedIndex() + 1;
+							String categoryChosen = (String) c_category.getSelectedItem();
+							Calendar closeTime = new GregorianCalendar(year, month - 1, day, hour, min);
+							c.sendMessage(
+									new RegisterItemMessage(
+											new Item(
+													tf_title.getText(),
+													tf_description.getText(),
+													user.getID(),
+													price,
+													categoryChosen,
+													Calendar.getInstance(),
+													closeTime
+											)
+									)
+							);
+						} else {
+							makeErrorFrame("Invalid date");
+						}
+					} else {
+						makeErrorFrame("Incorrect price format, use '.' separator");
+					}
+				}
+			}
+		});
 
 		this.content = p;
 	}
@@ -480,12 +612,6 @@ public class ClientGUI
 		f.repaint();
 	}
 
-	public void refresh()
-	{
-		f.revalidate();
-		f.repaint();
-	}
-
 	public void setUser(User u)
 	{
 		this.user = u;
@@ -493,11 +619,25 @@ public class ClientGUI
 
 	public void logOut()
 	{
-		c.sendMessage(new LogoutMessage(user));
-		user = null;
+		if (user != null) {
+			System.out.println("logging out user");
+			c.sendMessage(new LogoutMessage(user));
+			user = null;
+		}
 	}
 
-	public void setAuctions(HashMap<String, Item> auctions)
+	private boolean isDateValid(int year, int month, int day)
+	{
+		boolean dateIsValid = true;
+		try {
+			LocalDate.of(year, month, day);
+		} catch (DateTimeException e) {
+			dateIsValid = false;
+		}
+		return dateIsValid;
+	}
+
+	public void setAuctions(ArrayList<Item> auctions)
 	{
 		this.auctions = auctions;
 	}
@@ -506,7 +646,7 @@ public class ClientGUI
 	public final JFrame f;
 	private final Border borDefault = (new JTextField()).getBorder();
 	private User user = null;
-	private HashMap<String, Item> auctions;
+	private ArrayList<Item> auctions;
 	private JPanel topBar;
 	private JPanel content;
 }

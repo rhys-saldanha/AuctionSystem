@@ -1,6 +1,6 @@
-public class NewUserMessage implements Message
+public class RegisterUserMessage implements Message
 {
-	NewUserMessage(String ID, String name, String familyName, String password)
+	RegisterUserMessage(String ID, String name, String familyName, String password)
 	{
 		this.ID = ID;
 		this.name = name;
