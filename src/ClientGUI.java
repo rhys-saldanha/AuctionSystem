@@ -8,11 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 public class ClientGUI
 {
@@ -49,6 +47,7 @@ public class ClientGUI
 		p.add(new JLabel("Username"), gbc);
 
 		JTextField tf_username = new JTextField();
+		tf_username.requestFocusInWindow();
 		gbc.gridwidth = 2;
 		gbc.gridx = 2;
 		gbc.gridy = 1;
@@ -146,6 +145,7 @@ public class ClientGUI
 		p.add(new JLabel("Name"), gbc);
 
 		JTextField tf_name = new JTextField();
+		tf_name.requestFocusInWindow();
 		gbc.gridwidth = 2;
 		gbc.gridx = 1;
 		gbc.gridy = 1;
@@ -271,9 +271,11 @@ public class ClientGUI
 		gbc.weighty = 0.9;
 		gbc.gridy = 1;
 
+		JPanel side = new JPanel();
+		side.setBackground(Color.GREEN);
 		gbc.weightx = 0.1;
 		gbc.gridx = 0;
-		p.add(makeRandomPanel(), gbc);
+		p.add(side, gbc);
 
 		gbc.weightx = 0.9;
 		gbc.gridx = 1;
@@ -282,11 +284,12 @@ public class ClientGUI
 		this.setPanel(p);
 	}
 
-	public void makeAuctionContent()
+	public void makeAuctionContent(ArrayList<Item> auctions)
 	{
 		JPanel p = new JPanel(new BorderLayout());
 
 		DefaultTableModel model = new DefaultTableModel(new Object[]{
+				"ItemID",
 				"UserID",
 				"Title",
 				"Description",
@@ -303,6 +306,7 @@ public class ClientGUI
 		for (Object o : auctions) {
 			Item i = (Item) o;
 			model.addRow(new Object[]{
+					i.getID(),
 					i.getUserID(),
 					i.getTitle(),
 					i.getDescription(),
@@ -315,6 +319,19 @@ public class ClientGUI
 
 		p.add(t.getTableHeader(), BorderLayout.NORTH);
 		p.add(t, BorderLayout.CENTER);
+
+		t.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent ev)
+			{
+				int row = t.getSelectedRow();
+				int column = 0;
+				if (!(row < 0)) {
+					c.sendMessage(new RequestItem((String) t.getValueAt(row, column)));
+				}
+			}
+		});
 
 		this.content = p;
 	}
@@ -384,9 +401,12 @@ public class ClientGUI
 		JPanel time = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc2 = new GridBagConstraints();
 
-		/* Sets GridBagConstraints used for whole pane */
+		/* Sets GridBagConstraints used for time section */
 		gbc2.weightx = 0.5;
 		gbc2.fill = GridBagConstraints.HORIZONTAL;
+
+		Calendar timeShow = Calendar.getInstance();
+		timeShow.add(1, Calendar.MINUTE);
 
 		/* Hour */
 		JComboBox<Integer> c_hour = new JComboBox<>();
@@ -395,7 +415,7 @@ public class ClientGUI
 		}
 		gbc2.gridx = 0;
 		gbc2.gridy = 0;
-		c_hour.setSelectedItem(LocalTime.now().getHour());
+		c_hour.setSelectedItem(timeShow.get(Calendar.HOUR));
 		time.add(c_hour, gbc2);
 
 		/* : */
@@ -408,7 +428,7 @@ public class ClientGUI
 			c_min.addItem(i);
 		}
 		gbc2.gridx++;
-		c_min.setSelectedItem(LocalTime.now().getMinute() + 1);
+		c_min.setSelectedItem(timeShow.get(Calendar.MINUTE));
 		time.add(c_min, gbc2);
 
 		/* - */
@@ -421,7 +441,7 @@ public class ClientGUI
 			c_day.addItem(i);
 		}
 		gbc2.gridx++;
-		c_day.setSelectedItem(LocalDate.now().getDayOfMonth());
+		c_day.setSelectedItem(timeShow.get(Calendar.DAY_OF_MONTH));
 		time.add(c_day, gbc2);
 
 		/* / */
@@ -434,7 +454,7 @@ public class ClientGUI
 			c_month.addItem(i);
 		}
 		gbc2.gridx++;
-		c_month.setSelectedItem(LocalDate.now().getMonthValue());
+		c_month.setSelectedItem(timeShow.get(Calendar.MONTH) + 1);
 		time.add(c_month, gbc2);
 
 		/* / */
@@ -486,8 +506,7 @@ public class ClientGUI
 							int min = (Integer) c_min.getSelectedItem();
 							String categoryChosen = (String) c_category.getSelectedItem();
 							Calendar closeTime = new GregorianCalendar(year, month - 1, day, hour, min);
-							c.sendMessage(
-									new RegisterItemMessage(
+							c.sendMessage(new RegisterItemMessage(
 											new Item(
 													tf_title.getText(),
 													tf_description.getText(),
@@ -510,6 +529,163 @@ public class ClientGUI
 		});
 
 		this.content = p;
+	}
+
+	public void makeAddBidContent(Item item)
+	{
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 0.5;
+
+		/* Title */
+		gbc.gridwidth = 1;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		p.add(new JLabel(item.getTitle() + " sold by " + item.getUserID()), gbc);
+
+		/* Current highest */
+		gbc.gridwidth = 1;
+		gbc.gridx = 1;
+		gbc.gridy++;
+		p.add(new JLabel("Current highest bid value"), gbc);
+		gbc.gridx++;
+		p.add(new JLabel("" + item.getHighestBid().getAmount()), gbc);
+
+		/* Bid Value */
+		gbc.gridwidth = 1;
+		gbc.gridx = 1;
+		gbc.gridy++;
+		p.add(new JLabel("Bid value (£)"), gbc);
+
+		JTextField tf_bidValue = new JTextField();
+		gbc.gridwidth = 2;
+		gbc.gridx = 2;
+		p.add(tf_bidValue, gbc);
+
+		/* Submit */
+		JButton b_submit = new JButton("Submit");
+		gbc.gridwidth = 1;
+		gbc.gridx = 2;
+		gbc.gridy++;
+		p.add(b_submit, gbc);
+
+		/* Padding */
+		gbc.gridheight = gbc.gridy + 1;
+		gbc.gridwidth = 1;
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		p.add(new JPanel(), gbc);
+
+		gbc.gridx = 4;
+		p.add(new JPanel(), gbc);
+
+		b_submit.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (checkEmpty(tf_bidValue)) {
+					if (user.getID().equals(item.getUserID())) {
+						makePopUpFrame("You cannot bid on your own item");
+					} else {
+						String regex = "[0-9]+([.][0-9]{1,2})?";
+						if (tf_bidValue.getText().matches(regex)) {
+							Bid bid = new Bid(user.getID(),
+									Calendar.getInstance(),
+									Double.parseDouble(tf_bidValue.getText())
+							);
+							if (item.addBid(bid)) {
+								c.sendMessage(new RegisterBid(item.getID(), bid));
+								makePopUpFrame("Bid successful");
+							} else {
+								makePopUpFrame("Bid value below highest bid");
+							}
+						} else {
+							makePopUpFrame("BInvalid bid value");
+						}
+					}
+				}
+			}
+		});
+
+		this.content = p;
+	}
+
+	public void makeUserContent(ArrayList<Item> items, ArrayList<Item> bids)
+	{
+		JPanel c = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 0.5;
+		gbc.weighty = 0.5;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+
+		DefaultTableModel itemModel = new DefaultTableModel(new Object[]{
+				"ItemID",
+				"Title",
+				"Description",
+				"Highest bid",
+				"Time left"
+		}, 0)
+		{
+			@Override
+			public boolean isCellEditable(int r, int c)
+			{
+				return false;
+			}
+		};
+		for (Object o : items) {
+			Item i = (Item) o;
+			itemModel.addRow(new Object[]{
+					i.getID(),
+					i.getTitle(),
+					i.getDescription(),
+					"£" + i.getHighestBid().getAmount(),
+					i.timeLeft()
+			});
+		}
+
+		JTable t = new JTable(itemModel);
+		JPanel p = new JPanel(new BorderLayout());
+		p.add(t.getTableHeader(), BorderLayout.NORTH);
+		p.add(t, BorderLayout.CENTER);
+		c.add(p, gbc);
+		gbc.gridy++;
+
+		DefaultTableModel bidModel = new DefaultTableModel(new Object[]{
+				"UserID",
+				"Title",
+				"Description",
+				"Highest bid",
+				"Time left"
+		}, 0)
+		{
+			@Override
+			public boolean isCellEditable(int r, int c)
+			{
+				return false;
+			}
+		};
+		for (Object o : bids) {
+			Item i = (Item) o;
+			bidModel.addRow(new Object[]{
+					i.getUserID(),
+					i.getTitle(),
+					i.getDescription(),
+					"£" + i.getHighestBid().getAmount(),
+					i.timeLeft()
+			});
+		}
+
+		t = new JTable(itemModel);
+		p = new JPanel(new BorderLayout());
+		p.add(t.getTableHeader(), BorderLayout.NORTH);
+		p.add(t, BorderLayout.CENTER);
+		c.add(p, gbc);
+		this.content = c;
 	}
 
 	public void makeNavBar()
@@ -551,6 +727,14 @@ public class ClientGUI
 				makeMainPage();
 			}
 		});
+		b_user.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				c.sendMessage(new RequestUserList(user));
+			}
+		});
 		b_signout.addActionListener(new ActionListener()
 		{
 			@Override
@@ -562,25 +746,6 @@ public class ClientGUI
 		});
 
 		this.topBar = p;
-	}
-
-	private JPanel makeRandomPanel()
-	{
-		JPanel p = new JPanel();
-		Random rand = new Random();
-		float r = rand.nextFloat();
-		float g = rand.nextFloat();
-		float b = rand.nextFloat();
-		p.setBackground(new Color(r, g, b));
-		p.addMouseListener(new MouseAdapter()
-		{
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				makeLoginPage();
-			}
-		});
-		return p;
 	}
 
 	public void makePopUpFrame(String str)
@@ -635,11 +800,6 @@ public class ClientGUI
 		return dateIsValid;
 	}
 
-	public void setAuctions(ArrayList<Item> auctions)
-	{
-		this.auctions = auctions;
-	}
-
 	public User getUser()
 	{
 		return user;
@@ -649,11 +809,11 @@ public class ClientGUI
 	{
 		this.user = u;
 	}
+
 	public final Comms c;
 	public final JFrame f;
 	private final Border borDefault = (new JTextField()).getBorder();
 	private User user = null;
-	private ArrayList<Item> auctions;
 	private JPanel topBar;
 	private JPanel content;
 }

@@ -99,10 +99,18 @@ public class Client
 						c.sendMessage(new StringMessage("auctions"));
 					}
 					if (om.getObject() instanceof ArrayList) {
-						gui.setAuctions((ArrayList<Item>) om.getObject());
-						gui.makeAuctionContent();
+						gui.makeAuctionContent((ArrayList<Item>) om.getObject());
 						gui.makeMainPage();
 					}
+					if (om.getObject() instanceof Item) {
+						gui.makeAddBidContent((Item) om.getObject());
+						gui.makeMainPage();
+					}
+				}
+				if (m instanceof UserListsMessage) {
+					UserListsMessage ulm = (UserListsMessage) m;
+					gui.makeUserContent(ulm.getItems(), ulm.getBids());
+					gui.makeMainPage();
 				}
 				if (m instanceof NotificationMessage) {
 					NotificationMessage notif = (NotificationMessage) m;

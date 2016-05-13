@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,8 +20,36 @@ public class Server implements Runnable
 
 	public static void init()
 	{
+		registeredUsers = (DataPersistence.load("registeredUsers") == null)
+				? new HashMap<>()
+				: (HashMap<String, User>) DataPersistence.load("registeredUsers");
+
+		auctions = (DataPersistence.load("auctions") == null)
+				? new HashMap<>()
+				: (HashMap<String, Item>) DataPersistence.load("auctions");
+
+		runningAuctions = (DataPersistence.load("runningAuctions") == null)
+				? new ArrayList<>()
+				: (ArrayList<Item>) DataPersistence.load("runningAuctions");
+
+		textArea.setText((DataPersistence.load("textArea") == null)
+				? ""
+				: (String) DataPersistence.load("textArea"));
+
 		f.setTitle("Server");
-		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		f.addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				DataPersistence.save("registeredUsers", registeredUsers);
+				DataPersistence.save("auctions", auctions);
+				DataPersistence.save("runningAuctions", runningAuctions);
+				DataPersistence.save("textArea", textArea.getText());
+				System.exit(0);
+			}
+		});
 		f.setSize(500, 500);
 		f.setContentPane(new ScrollPane());
 		textArea.setEditable(false);
@@ -122,6 +152,49 @@ public class Server implements Runnable
 					print(c.nameTime(), "registered item, ID: " + rim.getItem().getID());
 					c.sendMessage(new StringMessage("auction success"));
 				}
+				if (m instanceof RequestItem) {
+					RequestItem ri = (RequestItem) m;
+					c.sendMessage(new ObjectMessage(auctions.get(ri.getItem())));
+				}
+				if (m instanceof RegisterBid) {
+					RegisterBid rb = (RegisterBid) m;
+					Item item;
+					synchronized (auctions) {
+						item = auctions.get(rb.getID());
+						item.addBid(rb.getBid());
+					}
+					synchronized (runningAuctions) {
+						runningAuctions.remove(item);
+						runningAuctions.add(item);
+						Collections.sort(runningAuctions, (o1, o2) ->
+								o1.getCloseTime().compareTo(o2.getCloseTime()));
+					}
+				}
+				if (m instanceof RequestUserList) {
+					RequestUserList rul = (RequestUserList) m;
+					ArrayList<Item> items = new ArrayList<>();
+					synchronized (auctions) {
+						for (Item i : auctions.values()) {
+							if (i.getUserID().equals(rul.getUser().getID())) {
+								items.add(i);
+							}
+						}
+					}
+					Collections.sort(items, (o1, o2) ->
+							o1.getCloseTime().compareTo(o2.getCloseTime()));
+					ArrayList<Item> bids = new ArrayList<>();
+					synchronized (runningAuctions) {
+						for (Item i : runningAuctions) {
+							if (rul.getUser().getID().equals(i.getHighestBid().getUserID())
+									&& !rul.getUser().getID().equals(i.getUserID())) {
+								bids.add(i);
+							}
+						}
+					}
+					Collections.sort(bids, (o1, o2) ->
+							o1.getCloseTime().compareTo(o2.getCloseTime()));
+					c.sendMessage(new UserListsMessage(items, bids));
+				}
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
 					if (sm.s.equals("auctions")) {
@@ -163,15 +236,14 @@ public class Server implements Runnable
 				}
 			}
 		}
-
 	}
 
 	/* Easier to check that no two users have the same ID */
-	private static HashMap<String, User> registeredUsers = new HashMap<>();
+	private static HashMap<String, User> registeredUsers;
 	/* Easier to check that no two items have the same ID */
-	private static HashMap<String, Item> auctions = new HashMap<>();
+	private static HashMap<String, Item> auctions;
 	/* Easier to find auctions that have ended */
-	private static ArrayList<Item> runningAuctions = new ArrayList<>();
+	private static ArrayList<Item> runningAuctions;
 	private static int online = 0;
 	private static JFrame f = new JFrame();
 	private static JTextArea textArea = new JTextArea();
