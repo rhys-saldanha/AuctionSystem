@@ -1,17 +1,16 @@
 import java.io.Serializable;
-import java.sql.Time;
+import java.util.Calendar;
 
 public class Bid implements Serializable
 {
-	public Bid(String userID, String itemID, Time time, Integer amount)
+	public Bid(String userID, Calendar time, Double amount)
 	{
 		this.userID = userID;
-		this.itemID = itemID;
 		this.time = time;
 		this.amount = amount;
 	}
 
-	public Integer getAmount()
+	public Double getAmount()
 	{
 		return amount;
 	}
@@ -21,13 +20,12 @@ public class Bid implements Serializable
 		return userID;
 	}
 
-	public Time getTime()
+	public Calendar getTime()
 	{
 		return time;
 	}
 
 	private final String userID;
-	private final Time time;
-	private final Integer amount;
-	private final String itemID;
+	private final Calendar time;
+	private final Double amount;
 }

@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 
 public class Server implements Runnable
 {
@@ -51,6 +51,21 @@ public class Server implements Runnable
 	{
 		try {
 			while (c.isOpen()) {
+				synchronized (runningAuctions) {
+					Item i;
+					while (runningAuctions.size() > 0 && (i = runningAuctions.get(0)).isEnded()) {
+						synchronized (registeredUsers) {
+							if (i.getUserID().equals(i.getHighestBid().getUserID())) {
+								User u = registeredUsers.get(i.getUserID());
+								u.sendNotification("Auction for \"" + i.getTitle() + "\" failed with no bids");
+							} else {
+								User u = registeredUsers.get(i.getHighestBid().getUserID());
+								u.sendNotification("You won the auction for \"" + i.getTitle() + "\"!");
+							}
+						}
+						runningAuctions.remove(i);
+					}
+				}
 				Message m = c.getMessage();
 				if (m instanceof RegisterUserMessage) {
 					RegisterUserMessage u = (RegisterUserMessage) m;
@@ -87,25 +102,31 @@ public class Server implements Runnable
 					}
 				}
 				if (m instanceof RegisterItemMessage) {
-					print(c.nameTime(), "sent register item message");
 					RegisterItemMessage rim = (RegisterItemMessage) m;
-					if (!auctions.containsKey(rim.getID())) {
-						synchronized (auctions) {
-							auctions.put(rim.getID(), rim.getItem());
-						}
-						synchronized (runningAuctions) {
-							runningAuctions.add(rim.getItem());
-						}
-						c.sendMessage(new StringMessage("auction success"));
-					} else {
-						c.sendMessage(new StringMessage("auction exists"));
+					synchronized (auctions) {
+						int n = 1;
+						String ID;
+						do {
+							ID = n + rim.getItem().getUserID() + rim.getItem().getTitle();
+							n++;
+						} while (auctions.containsKey(ID));
+						rim.getItem().setID(ID);
+						auctions.put(ID, rim.getItem());
 					}
+
+					synchronized (runningAuctions) {
+						runningAuctions.add(rim.getItem());
+						Collections.sort(runningAuctions, (o1, o2) ->
+								o1.getCloseTime().compareTo(o2.getCloseTime()));
+					}
+					print(c.nameTime(), "registered item, ID: " + rim.getItem().getID());
+					c.sendMessage(new StringMessage("auction success"));
 				}
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
 					if (sm.s.equals("auctions")) {
 						synchronized (runningAuctions) {
-							c.sendMessage(new ObjectMessage(new ArrayList<Item>(runningAuctions)));
+							c.sendMessage(new ObjectMessage(runningAuctions));
 						}
 					}
 				}
@@ -115,6 +136,16 @@ public class Server implements Runnable
 						User u = registeredUsers.get(lo.getUser().getID());
 						u.setOnline(false);
 						print(c.nameTime(), u.getID() + " logged out");
+					}
+				}
+				if (m instanceof GetNotificationMessage) {
+					GetNotificationMessage nm = (GetNotificationMessage) m;
+					synchronized (registeredUsers) {
+						User u = registeredUsers.get(nm.getUser().getID());
+						String notif = u.getNotification();
+						if (!notif.equals("")) {
+							c.sendMessage(new NotificationMessage(notif));
+						}
 					}
 				}
 			}
@@ -140,8 +171,7 @@ public class Server implements Runnable
 	/* Easier to check that no two items have the same ID */
 	private static HashMap<String, Item> auctions = new HashMap<>();
 	/* Easier to find auctions that have ended */
-	private static PriorityQueue<Item> runningAuctions = new PriorityQueue<>((o1, o2) ->
-			(int) (o1.getCloseTime().compareTo(o2.getCloseTime())));
+	private static ArrayList<Item> runningAuctions = new ArrayList<>();
 	private static int online = 0;
 	private static JFrame f = new JFrame();
 	private static JTextArea textArea = new JTextArea();

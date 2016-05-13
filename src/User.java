@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable
 {
@@ -9,6 +10,7 @@ public class User implements Serializable
 		this.familyName = familyName;
 		this.hash = hash;
 		this.online = false;
+		this.notifications = new ArrayList<>();
 	}
 
 	public String getName()
@@ -52,9 +54,24 @@ public class User implements Serializable
 		return ID.equals(user.getID()) && hash == (user.getHash());
 	}
 
+	public String getNotification()
+	{
+		try {
+			return notifications.remove(0);
+		} catch (IndexOutOfBoundsException ex) {
+			return "";
+		}
+	}
+
+	public void sendNotification(String n)
+	{
+		notifications.add(n);
+	}
+
 	private final String name;
 	private final String familyName;
 	private final int hash;
 	private final String ID;
+	private final ArrayList<String> notifications;
 	private boolean online;
 }

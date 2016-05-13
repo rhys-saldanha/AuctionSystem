@@ -4,19 +4,23 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Changes to Client, Server and User to better store that a user is online">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RegisterItemMessage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/NewUserMessage.java" afterPath="$PROJECT_DIR$/src/RegisterUserMessage.java" />
+    <list default="true" id="ed1560ee-37bf-4d09-9d02-995a36bd4b5b" name="Default" comment="Adds ability to create an auction">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GetNotificationMessage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/NotificationMessage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Bid.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Bid.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Client.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Client.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Item$1.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Item$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/Item.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/Item.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AuctionSystem/User.class" afterPath="$PROJECT_DIR$/out/production/AuctionSystem/User.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bid.java" afterPath="$PROJECT_DIR$/src/Bid.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client.java" afterPath="$PROJECT_DIR$/src/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ClientGUI.java" afterPath="$PROJECT_DIR$/src/ClientGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Comms.java" afterPath="$PROJECT_DIR$/src/Comms.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Item.java" afterPath="$PROJECT_DIR$/src/Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RegisterItemMessage.java" afterPath="$PROJECT_DIR$/src/RegisterItemMessage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server.java" afterPath="$PROJECT_DIR$/src/Server.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/User.java" afterPath="$PROJECT_DIR$/src/User.java" />
     </list>
     <ignored path="AuctionSystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,14 +41,14 @@
     <favorites_list name="AuctionSystem" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5610942">
+    <splitter split-orientation="horizontal" split-proportion="0.55136776">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Client.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="102" column="17" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
+                <state relative-caret-position="442">
+                  <caret line="107" column="45" selection-start-line="107" selection-start-column="40" selection-end-line="107" selection-end-column="45" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -55,45 +59,74 @@
           <file leaf-file-name="ClientGUI.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/ClientGUI.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="259">
-                  <caret line="488" column="77" selection-start-line="488" selection-start-column="77" selection-end-line="488" selection-end-column="77" />
+                <state relative-caret-position="1498">
+                  <caret line="649" column="20" selection-start-line="649" selection-start-column="20" selection-end-line="649" selection-end-column="20" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#init#0;class#ClientGUI#0" expanded="false" />
                     <element signature="method#makeLoginPage#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="e#2405#2406#0" expanded="true" />
-                    <element signature="e#2433#2434#0" expanded="true" />
+                    <element signature="e#2341#2342#0" expanded="true" />
+                    <element signature="e#2369#2370#0" expanded="true" />
                     <element signature="method#makeNewUserPage#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="e#6041#6042#0" expanded="true" />
-                    <element signature="e#6067#6068#0" expanded="true" />
-                    <element signature="method#makeAuctionContent#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="e#7137#7138#0" expanded="true" />
-                    <element signature="e#7160#7161#0" expanded="true" />
-                    <element signature="e#12851#12852#0" expanded="true" />
-                    <element signature="e#12906#12907#0" expanded="true" />
+                    <element signature="e#5977#5978#0" expanded="true" />
+                    <element signature="e#6003#6004#0" expanded="true" />
+                    <element signature="e#6909#6910#0" expanded="true" />
+                    <element signature="e#6932#6933#0" expanded="true" />
+                    <element signature="e#12624#12625#0" expanded="true" />
+                    <element signature="e#12679#12680#0" expanded="true" />
                     <element signature="method#makeRandomPanel#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="e#13601#13602#0" expanded="true" />
-                    <element signature="e#13627#13628#0" expanded="true" />
+                    <element signature="e#13374#13375#0" expanded="true" />
+                    <element signature="e#13400#13401#0" expanded="true" />
                     <element signature="method#checkEmpty#0;class#ClientGUI#0" expanded="false" />
                     <element signature="method#setPanel#0;class#ClientGUI#0" expanded="false" />
                     <element signature="method#logOut#0;class#ClientGUI#0" expanded="false" />
                     <element signature="method#isDateValid#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="e#14704#14705#0" expanded="true" />
-                    <element signature="e#14735#14736#0" expanded="true" />
-                    <marker date="1463079407195" expanded="false" signature="6129:6668" placeholder="{...}" />
-                    <marker date="1463079407195" expanded="false" signature="12204:13274" placeholder="{...}" />
+                    <element signature="e#14492#14493#0" expanded="true" />
+                    <element signature="e#14510#14511#0" expanded="true" />
+                    <marker date="1463107177741" expanded="false" signature="6065:6604" placeholder="{...}" />
+                    <marker date="1463107177741" expanded="false" signature="11977:13047" placeholder="{...}" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Server.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="488">
-                  <caret line="106" column="56" selection-start-line="106" selection-start-column="56" selection-end-line="106" selection-end-column="56" />
+                <state relative-caret-position="307">
+                  <caret line="59" column="111" selection-start-line="59" selection-start-column="111" selection-end-line="59" selection-end-column="111" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="GetNotificationMessage.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/GetNotificationMessage.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="34">
+                  <caret line="2" column="26" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="26" />
+                  <folding>
+                    <element signature="e#90#91#0" expanded="true" />
+                    <element signature="e#110#111#0" expanded="true" />
+                    <element signature="e#137#138#0" expanded="true" />
+                    <element signature="e#155#156#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NotificationMessage.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/NotificationMessage.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="51" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="51" />
+                  <folding>
+                    <element signature="e#86#87#0" expanded="true" />
+                    <element signature="e#114#115#0" expanded="true" />
+                    <element signature="e#151#152#0" expanded="true" />
+                    <element signature="e#177#178#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -103,57 +136,23 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ClientGUI.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/ClientGUI.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1220">
-                  <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="method#makeLoginPage#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#makeMainPage#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#makeAuctionContent#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#makeNavBar#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#makeRandomPanel#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#checkEmpty#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#setPanel#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#logOut#0;class#ClientGUI#0" expanded="false" />
-                    <element signature="method#isDateValid#0;class#ClientGUI#0" expanded="false" />
-                    <marker date="1463079407195" expanded="true" signature="10927:12149" placeholder="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="RegisterItemMessage.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/RegisterItemMessage.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#87#88#0" expanded="true" />
-                    <element signature="e#121#122#0" expanded="true" />
-                    <element signature="e#242#243#0" expanded="true" />
-                    <element signature="e#258#259#0" expanded="true" />
-                    <element signature="e#285#286#0" expanded="true" />
-                    <element signature="e#303#304#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Item.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="663">
-                  <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+                <state relative-caret-position="199">
+                  <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
                   <folding>
-                    <element signature="e#1531#1532#0" expanded="true" />
-                    <element signature="e#1554#1555#0" expanded="true" />
-                    <element signature="e#1754#1755#0" expanded="true" />
-                    <element signature="e#1776#1777#0" expanded="true" />
-                    <marker date="1463077097290" expanded="false" signature="901:911" placeholder=" { " />
-                    <marker date="1463077097290" expanded="false" signature="950:955" placeholder=" }" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#994#995#0" expanded="true" />
+                    <element signature="e#1024#1025#0" expanded="true" />
+                    <element signature="e#1219#1220#0" expanded="true" />
+                    <element signature="e#1242#1243#0" expanded="true" />
+                    <element signature="e#1319#1320#0" expanded="true" />
+                    <element signature="e#1338#1339#0" expanded="true" />
+                    <element signature="e#1432#1433#0" expanded="true" />
+                    <element signature="e#1454#1455#0" expanded="true" />
+                    <element signature="e#2093#2094#0" expanded="true" />
+                    <element signature="e#2182#2183#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -162,33 +161,36 @@
           <file leaf-file-name="Comms.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Comms.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+                <state relative-caret-position="306">
+                  <caret line="68" column="23" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#1856#1857#0" expanded="true" />
-                    <element signature="e#1921#1922#0" expanded="true" />
-                    <element signature="e#2106#2107#0" expanded="true" />
-                    <element signature="e#2124#2125#0" expanded="true" />
-                    <element signature="e#2149#2150#0" expanded="true" />
-                    <element signature="e#2172#2173#0" expanded="true" />
+                    <element signature="e#1882#1883#0" expanded="true" />
+                    <element signature="e#1947#1948#0" expanded="true" />
+                    <element signature="e#2132#2133#0" expanded="true" />
+                    <element signature="e#2150#2151#0" expanded="true" />
+                    <element signature="e#2175#2176#0" expanded="true" />
+                    <element signature="e#2198#2199#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="User.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/User.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="527">
-                  <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+                <state relative-caret-position="544">
+                  <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
                   <folding>
-                    <element signature="e#430#431#0" expanded="true" />
-                    <element signature="e#448#449#0" expanded="true" />
-                    <element signature="e#479#480#0" expanded="true" />
-                    <element signature="e#504#505#0" expanded="true" />
-                    <element signature="e#542#543#0" expanded="true" />
-                    <element signature="e#564#565#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#500#501#0" expanded="true" />
+                    <element signature="e#518#519#0" expanded="true" />
+                    <element signature="e#549#550#0" expanded="true" />
+                    <element signature="e#574#575#0" expanded="true" />
+                    <element signature="e#612#613#0" expanded="true" />
+                    <element signature="e#634#635#0" expanded="true" />
+                    <element signature="e#1030#1031#0" expanded="true" />
+                    <element signature="e#1057#1058#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -197,10 +199,25 @@
           <file leaf-file-name="Bid.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Bid.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+                <state relative-caret-position="340">
+                  <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="RegisterItemMessage.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/RegisterItemMessage.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="204">
+                  <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#88#89#0" expanded="true" />
+                    <element signature="e#111#112#0" expanded="true" />
+                    <element signature="e#138#139#0" expanded="true" />
+                    <element signature="e#156#157#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -302,17 +319,20 @@
         <option value="$PROJECT_DIR$/src/StringMessage.java" />
         <option value="$PROJECT_DIR$/src/UserMessage.java" />
         <option value="$PROJECT_DIR$/src/ObjectMessage.java" />
-        <option value="$PROJECT_DIR$/src/Comms.java" />
-        <option value="$PROJECT_DIR$/src/User.java" />
         <option value="$PROJECT_DIR$/src/LogoutMessage.java" />
         <option value="$PROJECT_DIR$/src/NewUserMessage.java" />
         <option value="$PROJECT_DIR$/src/RegisterUserMessage.java" />
-        <option value="$PROJECT_DIR$/src/Bid.java" />
-        <option value="$PROJECT_DIR$/src/RegisterItemMessage.java" />
         <option value="$PROJECT_DIR$/src/AuctionsMessage.java" />
-        <option value="$PROJECT_DIR$/src/Item.java" />
+        <option value="$PROJECT_DIR$/src/RegisterItemMessage.java" />
+        <option value="$PROJECT_DIR$/src/Bid.java" />
+        <option value="$PROJECT_DIR$/src/GetNotificationMessage.java" />
         <option value="$PROJECT_DIR$/src/ClientGUI.java" />
+        <option value="$PROJECT_DIR$/src/SendNotificationMessage.java" />
+        <option value="$PROJECT_DIR$/src/NotificationMessage.java" />
+        <option value="$PROJECT_DIR$/src/Item.java" />
         <option value="$PROJECT_DIR$/src/Client.java" />
+        <option value="$PROJECT_DIR$/src/User.java" />
+        <option value="$PROJECT_DIR$/src/Comms.java" />
         <option value="$PROJECT_DIR$/src/Server.java" />
       </list>
     </option>
@@ -955,7 +975,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463000334154</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Adds ability to create an auction">
+      <created>1463081005712</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1463081005712</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -970,7 +997,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2832981" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="770" y="430" width="379" height="157" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2832981" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="770" y="430" width="379" height="157" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -980,7 +1007,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23958333" sideWeight="0.50422835" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1004,7 +1031,6 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Fix code with Inspect Code" />
     <MESSAGE value="Reimplemented getMessage" />
     <MESSAGE value="Proof of client-wide variable" />
     <MESSAGE value="Change method of communication, now only sends messages not JPanels" />
@@ -1029,7 +1055,8 @@
     <MESSAGE value="Adds lots of changes&#10;Client shows auctions&#10;All clients close when the server closes" />
     <MESSAGE value="Creates LogoutMessage class" />
     <MESSAGE value="Changes to Client, Server and User to better store that a user is online" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes to Client, Server and User to better store that a user is online" />
+    <MESSAGE value="Adds ability to create an auction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds ability to create an auction" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1045,32 +1072,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="53" column="18" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Comms.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1856#1857#0" expanded="true" />
-            <element signature="e#1921#1922#0" expanded="true" />
-            <element signature="e#2106#2107#0" expanded="true" />
-            <element signature="e#2124#2125#0" expanded="true" />
-            <element signature="e#2149#2150#0" expanded="true" />
-            <element signature="e#2172#2173#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11679">
@@ -1117,12 +1118,15 @@
         <state relative-caret-position="527">
           <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
           <folding>
-            <element signature="e#430#431#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#504#505#0" expanded="true" />
-            <element signature="e#542#543#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#500#501#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#574#575#0" expanded="true" />
+            <element signature="e#612#613#0" expanded="true" />
+            <element signature="e#634#635#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#1057#1058#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1132,12 +1136,17 @@
         <state relative-caret-position="680">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <element signature="e#1531#1532#0" expanded="true" />
-            <element signature="e#1554#1555#0" expanded="true" />
-            <element signature="e#1754#1755#0" expanded="true" />
-            <element signature="e#1776#1777#0" expanded="true" />
-            <marker date="1463077097290" expanded="false" signature="901:911" placeholder=" { " />
-            <marker date="1463077097290" expanded="false" signature="950:955" placeholder=" }" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1219#1220#0" expanded="true" />
+            <element signature="e#1242#1243#0" expanded="true" />
+            <element signature="e#1319#1320#0" expanded="true" />
+            <element signature="e#1338#1339#0" expanded="true" />
+            <element signature="e#1432#1433#0" expanded="true" />
+            <element signature="e#1454#1455#0" expanded="true" />
+            <element signature="e#2093#2094#0" expanded="true" />
+            <element signature="e#2182#2183#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1322,21 +1331,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
-          <folding>
-            <element signature="e#430#431#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#504#505#0" expanded="true" />
-            <element signature="e#542#543#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LogoutMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1358,16 +1352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AuctionsMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1376,99 +1360,155 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Comms.java">
+    <entry file="file://$PROJECT_DIR$/src/Bid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="340">
+          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1856#1857#0" expanded="true" />
-            <element signature="e#1921#1922#0" expanded="true" />
-            <element signature="e#2106#2107#0" expanded="true" />
-            <element signature="e#2124#2125#0" expanded="true" />
-            <element signature="e#2149#2150#0" expanded="true" />
-            <element signature="e#2172#2173#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-          <folding>
-            <element signature="e#1531#1532#0" expanded="true" />
-            <element signature="e#1554#1555#0" expanded="true" />
-            <element signature="e#1754#1755#0" expanded="true" />
-            <element signature="e#1776#1777#0" expanded="true" />
-            <marker date="1463077097290" expanded="false" signature="901:911" placeholder=" { " />
-            <marker date="1463077097290" expanded="false" signature="950:955" placeholder=" }" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RegisterItemMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="e#87#88#0" expanded="true" />
-            <element signature="e#121#122#0" expanded="true" />
-            <element signature="e#242#243#0" expanded="true" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#285#286#0" expanded="true" />
-            <element signature="e#303#304#0" expanded="true" />
+            <element signature="e#88#89#0" expanded="true" />
+            <element signature="e#111#112#0" expanded="true" />
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#156#157#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1219#1220#0" expanded="true" />
+            <element signature="e#1242#1243#0" expanded="true" />
+            <element signature="e#1319#1320#0" expanded="true" />
+            <element signature="e#1338#1339#0" expanded="true" />
+            <element signature="e#1432#1433#0" expanded="true" />
+            <element signature="e#1454#1455#0" expanded="true" />
+            <element signature="e#2093#2094#0" expanded="true" />
+            <element signature="e#2182#2183#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GetNotificationMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="26" />
+          <folding>
+            <element signature="e#90#91#0" expanded="true" />
+            <element signature="e#110#111#0" expanded="true" />
+            <element signature="e#137#138#0" expanded="true" />
+            <element signature="e#155#156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NotificationMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="51" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="51" />
+          <folding>
+            <element signature="e#86#87#0" expanded="true" />
+            <element signature="e#114#115#0" expanded="true" />
+            <element signature="e#151#152#0" expanded="true" />
+            <element signature="e#177#178#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Comms.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="68" column="23" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1882#1883#0" expanded="true" />
+            <element signature="e#1947#1948#0" expanded="true" />
+            <element signature="e#2132#2133#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2175#2176#0" expanded="true" />
+            <element signature="e#2198#2199#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#500#501#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#574#575#0" expanded="true" />
+            <element signature="e#612#613#0" expanded="true" />
+            <element signature="e#634#635#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#1057#1058#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="488" column="77" selection-start-line="488" selection-start-column="77" selection-end-line="488" selection-end-column="77" />
+        <state relative-caret-position="1498">
+          <caret line="649" column="20" selection-start-line="649" selection-start-column="20" selection-end-line="649" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#init#0;class#ClientGUI#0" expanded="false" />
             <element signature="method#makeLoginPage#0;class#ClientGUI#0" expanded="false" />
-            <element signature="e#2405#2406#0" expanded="true" />
-            <element signature="e#2433#2434#0" expanded="true" />
+            <element signature="e#2341#2342#0" expanded="true" />
+            <element signature="e#2369#2370#0" expanded="true" />
             <element signature="method#makeNewUserPage#0;class#ClientGUI#0" expanded="false" />
-            <element signature="e#6041#6042#0" expanded="true" />
-            <element signature="e#6067#6068#0" expanded="true" />
-            <element signature="method#makeAuctionContent#0;class#ClientGUI#0" expanded="false" />
-            <element signature="e#7137#7138#0" expanded="true" />
-            <element signature="e#7160#7161#0" expanded="true" />
-            <element signature="e#12851#12852#0" expanded="true" />
-            <element signature="e#12906#12907#0" expanded="true" />
+            <element signature="e#5977#5978#0" expanded="true" />
+            <element signature="e#6003#6004#0" expanded="true" />
+            <element signature="e#6909#6910#0" expanded="true" />
+            <element signature="e#6932#6933#0" expanded="true" />
+            <element signature="e#12624#12625#0" expanded="true" />
+            <element signature="e#12679#12680#0" expanded="true" />
             <element signature="method#makeRandomPanel#0;class#ClientGUI#0" expanded="false" />
-            <element signature="e#13601#13602#0" expanded="true" />
-            <element signature="e#13627#13628#0" expanded="true" />
+            <element signature="e#13374#13375#0" expanded="true" />
+            <element signature="e#13400#13401#0" expanded="true" />
             <element signature="method#checkEmpty#0;class#ClientGUI#0" expanded="false" />
             <element signature="method#setPanel#0;class#ClientGUI#0" expanded="false" />
             <element signature="method#logOut#0;class#ClientGUI#0" expanded="false" />
             <element signature="method#isDateValid#0;class#ClientGUI#0" expanded="false" />
-            <element signature="e#14704#14705#0" expanded="true" />
-            <element signature="e#14735#14736#0" expanded="true" />
-            <marker date="1463079407195" expanded="false" signature="6129:6668" placeholder="{...}" />
-            <marker date="1463079407195" expanded="false" signature="12204:13274" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="106" column="56" selection-start-line="106" selection-start-column="56" selection-end-line="106" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#14492#14493#0" expanded="true" />
+            <element signature="e#14510#14511#0" expanded="true" />
+            <marker date="1463107177741" expanded="false" signature="6065:6604" placeholder="{...}" />
+            <marker date="1463107177741" expanded="false" signature="11977:13047" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="102" column="17" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
+        <state relative-caret-position="442">
+          <caret line="107" column="45" selection-start-line="107" selection-start-column="40" selection-end-line="107" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="59" column="111" selection-start-line="59" selection-start-column="111" selection-end-line="59" selection-end-column="111" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

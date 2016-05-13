@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -230,7 +228,7 @@ public class ClientGUI
 			{
 				if (!tf_password.getText().equals("") && !tf_password.getText().equals(tf_confirmPassword.getText())) {
 					makeRed(tf_confirmPassword);
-					makeErrorFrame("Password do not match");
+					makePopUpFrame("Password do not match");
 				}
 				if (checkEmpty(tf_username) && checkEmpty(tf_name) && checkEmpty(tf_password) && checkEmpty(tf_confirmPassword)
 						&& checkEmpty(tf_familyname)) {
@@ -287,13 +285,14 @@ public class ClientGUI
 	public void makeAuctionContent()
 	{
 		JPanel p = new JPanel(new BorderLayout());
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.BOTH;
-
-		DefaultTableModel model = new DefaultTableModel(new Object[]{"ID", "Title", "UserID", "Reserve Price",
-				"Highest bid", "Category", "Close Time"}, 0)
+		DefaultTableModel model = new DefaultTableModel(new Object[]{
+				"UserID",
+				"Title",
+				"Description",
+				"Highest bid",
+				"Time left"
+		}, 0)
 		{
 			@Override
 			public boolean isCellEditable(int r, int c)
@@ -303,8 +302,13 @@ public class ClientGUI
 		};
 		for (Object o : auctions) {
 			Item i = (Item) o;
-			model.addRow(new Object[]{i.getID(), i.getTitle(), i.getUserID(), i.getReservePrice(),
-					i.getHighestBid(), i.getCategory(), dateFormat.format(i.getCloseTime().getTime())});
+			model.addRow(new Object[]{
+					i.getUserID(),
+					i.getTitle(),
+					i.getDescription(),
+					"£" + i.getHighestBid().getAmount(),
+					i.timeLeft()
+			});
 		}
 
 		JTable t = new JTable(model);
@@ -474,12 +478,12 @@ public class ClientGUI
 					String regex = "[0-9]+([.][0-9]{1,2})?";
 					if (tf_reservePrice.getText().matches(regex)) {
 						int year = (Integer) c_year.getSelectedItem();
-						int month = c_month.getSelectedIndex() + 1;
-						int day = c_day.getSelectedIndex() + 1;
+						int month = (Integer) c_month.getSelectedItem();
+						int day = (Integer) c_day.getSelectedItem();
 						if (isDateValid(year, month, day)) {
 							Double price = Double.parseDouble(tf_reservePrice.getText());
-							int hour = c_hour.getSelectedIndex() + 1;
-							int min = c_min.getSelectedIndex() + 1;
+							int hour = (Integer) c_hour.getSelectedItem();
+							int min = (Integer) c_min.getSelectedItem();
 							String categoryChosen = (String) c_category.getSelectedItem();
 							Calendar closeTime = new GregorianCalendar(year, month - 1, day, hour, min);
 							c.sendMessage(
@@ -496,10 +500,10 @@ public class ClientGUI
 									)
 							);
 						} else {
-							makeErrorFrame("Invalid date");
+							makePopUpFrame("Invalid date");
 						}
 					} else {
-						makeErrorFrame("Incorrect price format, use '.' separator");
+						makePopUpFrame("Incorrect price format, use '.' separator");
 					}
 				}
 			}
@@ -579,7 +583,7 @@ public class ClientGUI
 		return p;
 	}
 
-	public void makeErrorFrame(String str)
+	public void makePopUpFrame(String str)
 	{
 		JOptionPane.showMessageDialog(null, str);
 	}
@@ -588,7 +592,7 @@ public class ClientGUI
 	{
 		if (tf.getText().equals("")) {
 			makeRed(tf);
-			makeErrorFrame("Cannot leave field empty");
+			makePopUpFrame("Cannot leave field empty");
 			return false;
 		}
 		makeDefault(tf);
@@ -612,15 +616,9 @@ public class ClientGUI
 		f.repaint();
 	}
 
-	public void setUser(User u)
-	{
-		this.user = u;
-	}
-
 	public void logOut()
 	{
 		if (user != null) {
-			System.out.println("logging out user");
 			c.sendMessage(new LogoutMessage(user));
 			user = null;
 		}
@@ -642,6 +640,15 @@ public class ClientGUI
 		this.auctions = auctions;
 	}
 
+	public User getUser()
+	{
+		return user;
+	}
+
+	public void setUser(User u)
+	{
+		this.user = u;
+	}
 	public final Comms c;
 	public final JFrame f;
 	private final Border borDefault = (new JTextField()).getBorder();

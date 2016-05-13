@@ -49,42 +49,45 @@ public class Client
 		/* Shows window */
 		f.setVisible(true);
 		while (c.isOpen()) {
+			if (gui.getUser() != null) {
+				c.sendMessage(new GetNotificationMessage(gui.getUser()));
+			}
 			Message m = c.getMessage();
 			if (m != null) {
 				if (m instanceof StringMessage) {
 					StringMessage sm = (StringMessage) m;
 					if (sm.s.contains("register")) {
 						if (sm.s.contains("success")) {
-							gui.makeErrorFrame("Registered successfully");
+							gui.makePopUpFrame("Registered successfully");
 							gui.makeLoginPage();
 						}
 						if (sm.s.contains("exists")) {
-							gui.makeErrorFrame("User already exists");
+							gui.makePopUpFrame("User already exists");
 						}
 					}
 					if (sm.s.contains("login")) {
 						if (sm.s.contains("success")) {
-							gui.makeErrorFrame("Logged in successfully");
+							gui.makePopUpFrame("Logged in successfully");
 						}
 						if (sm.s.contains("invalid")) {
 							if (sm.s.contains("password")) {
-								gui.makeErrorFrame("Invalid password");
+								gui.makePopUpFrame("Invalid password");
 							}
 							if (sm.s.contains("username")) {
-								gui.makeErrorFrame("Invalid username");
+								gui.makePopUpFrame("Invalid username");
 							}
 							if (sm.s.contains("logged in")) {
-								gui.makeErrorFrame("User already logged in");
+								gui.makePopUpFrame("User already logged in");
 							}
 						}
 					}
 					if (sm.s.contains("auction")) {
 						if (sm.s.contains("success")) {
-							gui.makeErrorFrame("Registered item successfully");
+							gui.makePopUpFrame("Registered item successfully");
 							gui.makeMainPage();
 						}
 						if (sm.s.contains("exists")) {
-							gui.makeErrorFrame("You already have an item with this name");
+							gui.makePopUpFrame("You already have an item with this name");
 						}
 					}
 				}
@@ -100,6 +103,10 @@ public class Client
 						gui.makeAuctionContent();
 						gui.makeMainPage();
 					}
+				}
+				if (m instanceof NotificationMessage) {
+					NotificationMessage notif = (NotificationMessage) m;
+					gui.makePopUpFrame(notif.getNotification());
 				}
 			}
 		}

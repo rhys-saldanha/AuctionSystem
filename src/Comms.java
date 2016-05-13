@@ -53,7 +53,7 @@ public class Comms implements Message, Serializable
 		startMessageThread();
 	}
 
-	public void sendMessage(Message m)
+	public synchronized void sendMessage(Message m)
 	{
 		try {
 			ObjectOutputStream writeOut = new ObjectOutputStream(out);
@@ -66,7 +66,7 @@ public class Comms implements Message, Serializable
 		}
 	}
 
-	public Message getMessage()
+	public synchronized Message getMessage()
 	{
 		return messages.poll();
 	}
