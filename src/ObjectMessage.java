@@ -10,5 +10,5 @@ public class ObjectMessage implements Message
 		return o;
 	}
 
-	private Object o;
+	private final Object o;
 }

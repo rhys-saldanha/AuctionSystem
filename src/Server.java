@@ -238,6 +238,8 @@ public class Server implements Runnable
 		}
 	}
 
+	private static final JFrame f = new JFrame();
+	private static final JTextArea textArea = new JTextArea();
 	/* Easier to check that no two users have the same ID */
 	private static HashMap<String, User> registeredUsers;
 	/* Easier to check that no two items have the same ID */
@@ -245,7 +247,5 @@ public class Server implements Runnable
 	/* Easier to find auctions that have ended */
 	private static ArrayList<Item> runningAuctions;
 	private static int online = 0;
-	private static JFrame f = new JFrame();
-	private static JTextArea textArea = new JTextArea();
 	private final Comms c;
 }

@@ -32,5 +32,5 @@ public class DataPersistence
 		}
 	}
 
-	private static Integer sync = 0;
+	private static final Integer sync = 0;
 }

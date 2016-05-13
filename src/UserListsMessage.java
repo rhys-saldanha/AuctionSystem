@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-/**
- * Created by Rhys on 13/05/2016.
- */
 public class UserListsMessage implements Message
 {
 	public UserListsMessage(ArrayList<Item> items, ArrayList<Item> bids)
