@@ -6,7 +6,7 @@ public class DataPersistence
 	{
 		synchronized (sync) {
 			try {
-				FileOutputStream out = new FileOutputStream(str);
+				FileOutputStream out = new FileOutputStream("files/" + str);
 				ObjectOutputStream oos = new ObjectOutputStream(out);
 				oos.writeObject(o);
 				oos.flush();
@@ -20,7 +20,7 @@ public class DataPersistence
 	{
 		synchronized (sync) {
 			try {
-				FileInputStream in = new FileInputStream(str);
+				FileInputStream in = new FileInputStream("files/" + str);
 				ObjectInputStream ois = new ObjectInputStream(in);
 				return ois.readObject();
 			} catch (FileNotFoundException ex) {
